@@ -14,6 +14,23 @@ class Project < ActiveRecord::Base
     days
   end
 
+  def wip_per_day
+    hash = Hash.new
+    tasks.each do |task|
+      date = task.start_date
+      max = task.end_date || Date.today
+      while date <= max
+        if hash[date].nil?
+          hash[date] = 1
+        else
+          hash[date] = hash[date] + 1
+        end
+        date = date + 1
+      end
+    end
+    hash
+  end
+
   def min_date
     tasks.minimum('start_date')
   end

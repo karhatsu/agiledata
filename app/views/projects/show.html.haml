@@ -1,5 +1,11 @@
 - days = @project.days
+- wip_per_day = @project.wip_per_day
 %table#data-table
+  %tr
+    %th WIP
+    - days.each do |day|
+      %th
+        = wip_per_day[day] || 0
   %tr
     %th Day
     - days.each do |day|
