@@ -3,7 +3,11 @@
 - days_count = (max_date - min_date + 1).to_i
 %table#data-table
   %tr
-    %td &nbsp;
+    %td Day
+    - days_count.times do |i|
+      %th= (min_date + i).strftime('%a')
+  %tr
+    %td Date
     - days_count.times do |i|
       %th= (min_date + i).strftime('%d.%m')
   - @tasks.each_with_index do |task, task_no|
