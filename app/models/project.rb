@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  include WeekendHelper
+
   has_many :tasks
 
   def days
@@ -6,7 +8,7 @@ class Project < ActiveRecord::Base
     max = max_date
     date = min_date
     while date <= max
-      days << date
+      days << date unless weekend?(date)
       date = date + 1
     end
     days
