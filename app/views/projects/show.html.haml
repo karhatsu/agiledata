@@ -1,6 +1,10 @@
 - days = @project.days
 - wip_per_day = @project.wip_per_day
 - throughput = @project.weekly_throughput
+%div
+  Average lead time:
+  = @project.avg_lead_time
+  days
 %table#data-table
   %tr
     %th Weekly
