@@ -1,0 +1,18 @@
+- min_date = @project.min_date
+- max_date = @project.max_date
+- days_count = (max_date - min_date + 1).to_i
+%table#data-table
+  %tr
+    - days_count.times do |i|
+      %th= (min_date + i).strftime('%d.%m')
+  - @tasks.each do |task|
+    %tr
+      - days_count.times do |i|
+        - date = min_date + i
+        - if date < task.start_date || (task.end_date && task.end_date < date)
+          %td &nbsp;
+        - elsif min_date + i == task.start_date
+          - if task.end_date
+            %td.active{colspan: task.days_count}= task.days_count
+          - else
+            %td.unfinished{colspan: task.current_days_count} ?
