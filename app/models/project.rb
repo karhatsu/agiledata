@@ -31,6 +31,20 @@ class Project < ActiveRecord::Base
     hash
   end
 
+  def weekly_throughput
+    hash = Hash.new
+    tasks.each do |task|
+      next unless task.end_date
+      week = task.end_date.strftime('%W').to_i
+      if hash[week].nil?
+        hash[week] = 1
+      else
+        hash[week] = hash[week] + 1
+      end
+    end
+    hash
+  end
+
   def min_date
     tasks.minimum('start_date')
   end

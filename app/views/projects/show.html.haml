@@ -1,11 +1,21 @@
 - days = @project.days
 - wip_per_day = @project.wip_per_day
+- throughput = @project.weekly_throughput
 %table#data-table
   %tr
     %th WIP
     - days.each do |day|
       %th
         = wip_per_day[day] || 0
+  %tr
+    %th Weekly
+    - days.each_with_index do |day, i|
+      - if i == 0
+        %th{colspan: 6 - day.wday}
+          = throughput[day.strftime('%W').to_i] || 0
+      - elsif day.wday == 1
+        %th{colspan: 5}
+          = throughput[day.strftime('%W').to_i] || 0
   %tr
     %th Day
     - days.each do |day|
