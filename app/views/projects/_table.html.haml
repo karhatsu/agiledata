@@ -11,19 +11,23 @@
       - elsif day.wday == 1
         %th{colspan: 5}
           = throughput[day.strftime('%W').to_i] || 0
+    %th Weekly
   %tr
     %th Day
     - days.each do |day|
       %th= day.strftime('%a')
+    %th Day
   %tr
     %th Date
     - days.each do |day|
       %th= day.strftime('%d.%m')
+    %th Date
   %tr
     %th WIP
     - days.each do |day|
       %th
         = wip_per_day[day] || 0
+    %th WIP
   - @tasks.each_with_index do |task, task_no|
     %tr
       %td= task_no+1
@@ -36,3 +40,4 @@
             %td.active{colspan: work_days_count}= work_days_count
           - else
             %td.unfinished{colspan: work_days_count} ?
+      %td= task_no+1
