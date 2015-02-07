@@ -1,0 +1,24 @@
+body {
+    font-family: arial, helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #777;
+    color: #fff;
+    margin: 0 0 10px 0;
+    padding: 10px 5px;
+}
+
+.main-content {
+    margin: 20px;
+}
+
+.stats_summary {
+    margin: 0 0 20px;
+}
+
+.stats_summary .label {
+    font-weight: bold;
+}

@@ -6,26 +6,26 @@
     %th Weekly
     - days.each_with_index do |day, i|
       - if i == 0
-        %th{colspan: 6 - day.wday}
+        %td{colspan: 6 - day.wday}
           = throughput[day.strftime('%W').to_i] || 0
       - elsif day.wday == 1
-        %th{colspan: 5}
+        %td{colspan: 5}
           = throughput[day.strftime('%W').to_i] || 0
     %th Weekly
   %tr
     %th Day
     - days.each do |day|
-      %th= day.strftime('%a')
+      %td= day.strftime('%a')
     %th Day
   %tr
     %th Date
     - days.each do |day|
-      %th= day.strftime('%d.%m')
+      %td= day.strftime('%d.%m')
     %th Date
   %tr
     %th WIP
     - days.each do |day|
-      %th
+      %td
         = wip_per_day[day] || 0
     %th WIP
   - @tasks.each_with_index do |task, task_no|

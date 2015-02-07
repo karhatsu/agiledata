@@ -1,20 +1,27 @@
 #table-wrapper {
     overflow: auto;
-    margin: 10px;
     max-width: 1200px;
 }
 
 #data-table {
     border-spacing: 0;
     border-collapse: collapse;
+    font-size: 11px;
 }
 
 #data-table th, #data-table td {
     border: 1px solid #ccc;
     margin: 0;
-    padding: 0;
     text-align: center;
     width: 50px;
+}
+
+#data-table th {
+    padding: 2px;
+}
+
+#data-table td {
+    padding: 2px 0;
 }
 
 #data-table td.active {

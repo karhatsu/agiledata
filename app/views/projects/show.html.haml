@@ -1,9 +1,10 @@
-%h1= @project.name
+- content_for :title, @project.name
+
 - if @project.tasks.empty?
   No tasks
 - else
-  %div
-    Average lead time:
+  .stats_summary
+    %span.label Average lead time:
     = @project.avg_lead_time
     days
   #table-wrapper
