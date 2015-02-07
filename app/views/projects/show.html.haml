@@ -1,7 +1,10 @@
 %h1= @project.name
-%div
-  Average lead time:
-  = @project.avg_lead_time
-  days
-#table-wrapper
-  = render 'table'
+- if @project.tasks.empty?
+  No tasks
+- else
+  %div
+    Average lead time:
+    = @project.avg_lead_time
+    days
+  #table-wrapper
+    = render 'table'
