@@ -15,10 +15,26 @@ h1 {
     margin: 20px;
 }
 
+.clear {
+    clear: both;
+}
+
 .stats_summary {
     margin: 0 0 20px;
 }
 
-.stats_summary .label {
+.stats_item {
+    background-color: #eee;
+    border: dashed 0px #999;
+    border-radius: 3px;
+    box-shadow: #666666 5px 5px 5px;
+    float: left;
+    margin: 10px 30px 20px 0;
+    min-width: 200px;
+    padding: 10px;
+    text-align: center;
+}
+
+.stats_item .label {
     font-weight: bold;
 }
