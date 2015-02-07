@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150206155410) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -28,4 +31,7 @@ ActiveRecord::Schema.define(version: 20150206155410) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
+
+  add_foreign_key "tasks", "projects"
 end
