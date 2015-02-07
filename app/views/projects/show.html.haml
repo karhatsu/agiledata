@@ -6,11 +6,11 @@
   .stats_summary
     .stats_item
       %span.label Average lead time:
-      = @project.avg_lead_time
+      = number_with_precision @project.avg_lead_time, precision: 1
       days
     .stats_item
       %span.label Average lead time (last 5):
-      = @project.avg_lead_time 5
+      = number_with_precision @project.avg_lead_time(5), precision: 1
       days
   #table-wrapper
     = render 'table'
