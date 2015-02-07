@@ -4,6 +4,8 @@ class Task < ActiveRecord::Base
   belongs_to :project
 
   validates :start_date, presence: true
+  validate :start_date_not_weekend
+  validate :end_date_not_weekend
 
   def work_days_count
     max_date = end_date || Date.today
@@ -14,5 +16,14 @@ class Task < ActiveRecord::Base
       date = date + 1
     end
     count
+  end
+
+  private
+  def start_date_not_weekend
+    errors.add :start_date, 'cannot be weekend day' if start_date && weekend?(start_date)
+  end
+
+  def end_date_not_weekend
+    errors.add :end_date, 'cannot be weekend day' if end_date && weekend?(end_date)
   end
 end
