@@ -9,19 +9,23 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
 
-group :production do
+group :development, :production do
   gem 'pg'
+end
+
+group :test do
+  gem 'sqlite3'
+end
+
+group :production do
   gem 'rails_12factor'
 end
 
