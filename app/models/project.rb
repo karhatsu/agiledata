@@ -47,14 +47,16 @@ class Project < ActiveRecord::Base
     hash
   end
 
-  def avg_lead_time
-    times = lead_times
+  def avg_lead_time(last=nil)
+    chosen_tasks = tasks.select {|task| task.end_date}
+    chosen_tasks = chosen_tasks.last(last) if last.to_i > 0
+    times = lead_times(chosen_tasks)
     return nil if times.empty?
     times.reduce(:+).to_f / times.size
   end
 
-  def lead_times
-    tasks.select {|task| task.end_date}.map {|task| task.work_days_count}
+  def lead_times(tasks)
+    tasks.map {|task| task.work_days_count}
   end
 
   def min_date

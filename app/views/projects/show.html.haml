@@ -4,8 +4,13 @@
   No tasks
 - else
   .stats_summary
-    %span.label Average lead time:
-    = @project.avg_lead_time
-    days
+    .stats_item
+      %span.label Average lead time:
+      = @project.avg_lead_time
+      days
+    .stats_item
+      %span.label Average lead time (last 5):
+      = @project.avg_lead_time 5
+      days
   #table-wrapper
     = render 'table'
