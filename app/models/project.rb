@@ -3,6 +3,8 @@ class Project < ActiveRecord::Base
 
   has_many :tasks
 
+  validates :name, presence: true
+
   def days
     days = []
     max = max_date

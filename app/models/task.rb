@@ -3,6 +3,8 @@ class Task < ActiveRecord::Base
 
   belongs_to :project
 
+  validates :start_date, presence: true
+
   def work_days_count
     max_date = end_date || Date.today
     count = 0
