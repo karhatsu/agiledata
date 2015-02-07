@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   include WeekendHelper
 
-  has_many :tasks
+  has_many :tasks, -> { order(:start_date) }
 
   validates :name, presence: true
 
