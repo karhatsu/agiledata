@@ -5,10 +5,18 @@
   .data
     .stats_content.left
       .sub_label Total
-      .stats_value= number_with_precision(left_value, precision: prec)
+      .stats_value
+        - if left_value
+          = number_with_precision(left_value, precision: prec)
+        - else
+          n.a.
     .stats_content
       .sub_label= right_title
-      .stats_value= number_with_precision(right_value, precision: prec)
+      .stats_value
+        - if right_value
+          = number_with_precision(right_value, precision: prec)
+        - else
+          n.a.
     .clear
     .unit
       (#{unit})

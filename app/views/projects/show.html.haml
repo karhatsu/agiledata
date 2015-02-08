@@ -12,8 +12,7 @@
     = render partial: 'stats_item', locals: { title: 'Average WIP', unit: 'per day',
         left_value: @project.avg_wip, right_value: @project.avg_wip(14), right_title: '14 days' }
     = render partial: 'stats_item', locals: { title: '1-piece-flow lead time', unit: 'work days: lead time / WIP',
-        left_value: @project.avg_lead_time / @project.avg_wip,
-        right_value: @project.avg_lead_time(5) / @project.avg_wip(14), right_title: 'Last 5' }
+        left_value: @project.avg_days_per_task, right_value: @project.avg_days_per_task(5, 14), right_title: 'Last 5' }
     .clear
   %h2 Forecasts
   How long will it take to build next 10 items?
