@@ -4,14 +4,18 @@
   No tasks
 - else
   .stats_summary
-    = render partial: 'stats_item', locals: { title: 'Average lead time (days)',
+    = render partial: 'stats_item', locals: { title: 'Average lead time', unit: 'days',
         left_value: number_with_precision(@project.avg_lead_time, precision: 1),
         right_value: number_with_precision(@project.avg_lead_time(5), precision: 1),
         right_title: 'Last 5' }
-    = render partial: 'stats_item', locals: { title: 'Average WIP (per day)',
+    = render partial: 'stats_item', locals: { title: 'Average WIP', unit: 'per day',
         left_value: number_with_precision(@project.avg_wip, precision: 1),
         right_value: number_with_precision(@project.avg_wip(14), precision: 1),
         right_title: '14 days' }
+    = render partial: 'stats_item', locals: { title: '1-piece-flow lead time', unit: 'days',
+        left_value: number_with_precision(@project.avg_lead_time / @project.avg_wip, precision: 1),
+        right_value: number_with_precision(@project.avg_lead_time(5) / @project.avg_wip(14), precision: 1),
+        right_title: 'Last 5' }
     .clear
   #table-wrapper
     = render 'table'
