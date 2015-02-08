@@ -11,6 +11,8 @@
     = render partial: 'stats_item', locals: { title: '1-piece-flow lead time', unit: 'days: lead time / WIP',
         left_value: @project.avg_lead_time / @project.avg_wip,
         right_value: @project.avg_lead_time(5) / @project.avg_wip(14), right_title: 'Last 5' }
+    = render partial: 'stats_item', locals: { title: 'Average throughput', unit: 'per week',
+        left_value: @project.avg_throughput, right_value: @project.avg_throughput(3), right_title: 'Last 3' }
     .clear
   #table-wrapper
     = render 'table'
