@@ -6,8 +6,8 @@
   .data
     .stats_content.left
       .sub_label Total
-      .stats_value= left_value
+      .stats_value= number_with_precision(left_value, precision: 1)
     .stats_content
       .sub_label= right_title
-      .stats_value= right_value
+      .stats_value= number_with_precision(right_value, precision: 1)
     .clear
