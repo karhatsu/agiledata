@@ -26,7 +26,7 @@
     %th WIP
     - days.each do |day|
       %td
-        = wip_per_day[day] || 0
+        = wip_per_day[day]
     %th WIP
   - @tasks.each_with_index do |task, task_no|
     %tr

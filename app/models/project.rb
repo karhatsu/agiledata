@@ -16,8 +16,14 @@ class Project < ActiveRecord::Base
     days
   end
 
-  def wip_per_day
+  def days_hash(default_value=nil)
     hash = Hash.new
+    days.each {|day| hash[day] = default_value}
+    hash
+  end
+
+  def wip_per_day
+    hash = days_hash 0
     tasks.each do |task|
       date = task.start_date
       max = task.end_date || Date.today
