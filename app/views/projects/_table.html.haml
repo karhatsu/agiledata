@@ -7,10 +7,10 @@
     - days.each_with_index do |day, i|
       - if i == 0
         %td{colspan: 6 - day.wday}
-          = throughput[day.strftime('%W').to_i] || 0
+          = throughput[day.strftime('%W').to_i]
       - elsif day.wday == 1
         %td{colspan: 5}
-          = throughput[day.strftime('%W').to_i] || 0
+          = throughput[day.strftime('%W').to_i]
     %th Weekly
   %tr
     %th Day

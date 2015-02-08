@@ -22,6 +22,18 @@ class Project < ActiveRecord::Base
     hash
   end
 
+  def week_hash(default_value=nil)
+    hash = Hash.new
+    min_week = min_date.strftime('%W').to_i
+    max_week = max_date.strftime('%W').to_i
+    week = min_week
+    while week <= max_week
+      hash[week] = default_value
+      week = week + 1
+    end
+    hash
+  end
+
   def wip_per_day
     hash = days_hash 0
     tasks.each do |task|
@@ -46,7 +58,7 @@ class Project < ActiveRecord::Base
   end
 
   def weekly_throughput
-    hash = Hash.new
+    hash = week_hash(0)
     tasks.each do |task|
       next unless task.end_date
       week = task.end_date.strftime('%W').to_i
