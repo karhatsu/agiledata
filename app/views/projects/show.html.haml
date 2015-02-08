@@ -5,13 +5,15 @@
 - else
   .stats_summary
     .stats_item
-      .label Average lead time
-      = number_with_precision @project.avg_lead_time, precision: 1
-      days
-    .stats_item
-      .label Average lead time (last 5)
-      = number_with_precision @project.avg_lead_time(5), precision: 1
-      days
-  .clear
+      .label Average lead time (days)
+      .data
+        .stats_content.left
+          .sub_label Total
+          = number_with_precision @project.avg_lead_time, precision: 1
+        .stats_content
+          .sub_label Last 5
+          = number_with_precision @project.avg_lead_time(5), precision: 1
+        .clear
+    .clear
   #table-wrapper
     = render 'table'
