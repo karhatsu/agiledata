@@ -39,6 +39,12 @@ class Project < ActiveRecord::Base
     hash
   end
 
+  def avg_wip(last_days=nil)
+    wips = wip_per_day.values
+    wips = wips.last(last_days) if last_days
+    wips.reduce(:+).to_f / wips.size
+  end
+
   def weekly_throughput
     hash = Hash.new
     tasks.each do |task|

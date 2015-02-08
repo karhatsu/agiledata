@@ -8,6 +8,10 @@
         left_value: number_with_precision(@project.avg_lead_time, precision: 1),
         right_value: number_with_precision(@project.avg_lead_time(5), precision: 1),
         right_title: 'Last 5' }
+    = render partial: 'stats_item', locals: { title: 'Average WIP (per day)',
+        left_value: number_with_precision(@project.avg_wip, precision: 1),
+        right_value: number_with_precision(@project.avg_wip(14), precision: 1),
+        right_title: '14 days' }
     .clear
   #table-wrapper
     = render 'table'
