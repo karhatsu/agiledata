@@ -67,3 +67,8 @@ h2 {
     font-size: 22px;
     font-weight: bold;
 }
+
+.stats_item .unit {
+    color: #138815;
+    margin: 3px 0 0;
+}

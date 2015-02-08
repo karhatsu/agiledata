@@ -2,8 +2,6 @@
 .stats_item
   .label
     = title
-    %br
-    (#{unit})
   .data
     .stats_content.left
       .sub_label Total
@@ -12,3 +10,5 @@
       .sub_label= right_title
       .stats_value= number_with_precision(right_value, precision: prec)
     .clear
+    .unit
+      (#{unit})
