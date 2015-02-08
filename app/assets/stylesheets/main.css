@@ -11,6 +11,10 @@ h1 {
     padding: 10px 5px;
 }
 
+h2 {
+    margin: 3px 0;
+}
+
 .main-content {
     margin: 20px;
 }
@@ -20,7 +24,7 @@ h1 {
 }
 
 .stats_summary {
-    margin: 0 0 20px;
+    margin: 0 0 10px;
 }
 
 .stats_item {

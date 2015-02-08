@@ -3,7 +3,10 @@
 - if @project.tasks.empty?
   No tasks
 - else
+  %h2 Statistics
   .stats_summary
+    = render partial: 'stats_item', locals: { title: 'Average throughput', unit: 'per week',
+        left_value: @project.avg_throughput, right_value: @project.avg_throughput(3), right_title: 'Last 3 w' }
     = render partial: 'stats_item', locals: { title: 'Average lead time', unit: 'days',
         left_value: @project.avg_lead_time, right_value: @project.avg_lead_time(5), right_title: 'Last 5' }
     = render partial: 'stats_item', locals: { title: 'Average WIP', unit: 'per day',
@@ -11,8 +14,13 @@
     = render partial: 'stats_item', locals: { title: '1-piece-flow lead time', unit: 'days: lead time / WIP',
         left_value: @project.avg_lead_time / @project.avg_wip,
         right_value: @project.avg_lead_time(5) / @project.avg_wip(14), right_title: 'Last 5' }
-    = render partial: 'stats_item', locals: { title: 'Average throughput', unit: 'per week',
-        left_value: @project.avg_throughput, right_value: @project.avg_throughput(3), right_title: 'Last 3' }
+    .clear
+  %h2 Forecasts
+  How long will it take to build next 10 items?
+  .stats_summary
+    = render partial: 'stats_item', locals: { title: 'Based on throughput', unit: 'days',
+        left_value: @project.throughput_forecast_for(10), right_value: @project.throughput_forecast_for(10, 3),
+        right_title: 'Last 3 w', precision: 0 }
     .clear
   #table-wrapper
     = render 'table'

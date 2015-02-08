@@ -1,3 +1,4 @@
+- prec = defined?(precision) ? precision : 1
 .stats_item
   .label
     = title
@@ -6,8 +7,8 @@
   .data
     .stats_content.left
       .sub_label Total
-      .stats_value= number_with_precision(left_value, precision: 1)
+      .stats_value= number_with_precision(left_value, precision: prec)
     .stats_content
       .sub_label= right_title
-      .stats_value= number_with_precision(right_value, precision: 1)
+      .stats_value= number_with_precision(right_value, precision: prec)
     .clear

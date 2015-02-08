@@ -96,4 +96,9 @@ class Project < ActiveRecord::Base
   def max_date
     Date.today
   end
+
+  def throughput_forecast_for(tasks_count, last_weeks=nil)
+    avg = avg_throughput last_weeks
+    tasks_count.to_f / avg * 5
+  end
 end
