@@ -4,16 +4,10 @@
   No tasks
 - else
   .stats_summary
-    .stats_item
-      .label Average lead time (days)
-      .data
-        .stats_content.left
-          .sub_label Total
-          = number_with_precision @project.avg_lead_time, precision: 1
-        .stats_content
-          .sub_label Last 5
-          = number_with_precision @project.avg_lead_time(5), precision: 1
-        .clear
+    = render partial: 'stats_item', locals: { title: 'Average lead time (days)',
+        left_value: number_with_precision(@project.avg_lead_time, precision: 1),
+        right_value: number_with_precision(@project.avg_lead_time(5), precision: 1),
+        right_title: 'Last 5' }
     .clear
   #table-wrapper
     = render 'table'
