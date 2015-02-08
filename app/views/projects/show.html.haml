@@ -21,6 +21,9 @@
     = render partial: 'stats_item', locals: { title: 'Based on throughput', unit: 'work days',
         left_value: @project.throughput_forecast_for(10), right_value: @project.throughput_forecast_for(10, 3),
         right_title: 'Last 3 w', precision: 0 }
+    = render partial: 'stats_item', locals: { title: 'Based on lead time / WIP', unit: 'work days',
+        left_value: @project.lead_time_wip_forecast_for(10), right_value: @project.lead_time_wip_forecast_for(10, 5, 14),
+        right_title: 'Last 5', precision: 0 }
     .clear
   #table-wrapper
     = render 'table'
