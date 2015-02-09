@@ -71,10 +71,16 @@ class Project < ActiveRecord::Base
     hash
   end
 
-  def avg_throughput(last=nil)
-    throughputs = weekly_throughput.values
-    throughputs = throughputs.last(last) if last
-    throughputs.reduce(:+).to_f / throughputs.size
+  def avg_throughput(prev_weeks=nil)
+    chosen_tasks = tasks.select {|task| task.end_date}
+    weeks = days.size.to_f / 5
+    if prev_weeks && days.size.to_f/5 > prev_weeks
+      min_date = days[days.size - 2 - 5*prev_weeks]
+      max_date = days[days.size - 2]
+      chosen_tasks = chosen_tasks.select {|task| task.end_date >= min_date && task.end_date <= max_date}
+      weeks = prev_weeks
+    end
+    chosen_tasks.size / weeks
   end
 
   def avg_lead_time(last=nil)
