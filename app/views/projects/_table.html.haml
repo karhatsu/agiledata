@@ -9,7 +9,8 @@
         %td{colspan: 6 - day.wday}
           = throughput[day.strftime('%W').to_i]
       - elsif day.wday == 1
-        %td{colspan: 5}
+        - colspan = days.size - i < 5 ? days.size - i : 5
+        %td{colspan: colspan}
           = throughput[day.strftime('%W').to_i]
     %th Weekly
   %tr
