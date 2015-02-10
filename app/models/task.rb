@@ -6,6 +6,7 @@ class Task < ActiveRecord::Base
   validates :start_date, presence: true
   validate :start_date_not_weekend
   validate :end_date_not_weekend
+  validate :start_date_not_in_future
   validate :end_date_not_in_future
 
   def work_days_count
@@ -26,6 +27,10 @@ class Task < ActiveRecord::Base
 
   def end_date_not_weekend
     errors.add :end_date, 'cannot be weekend day' if end_date && weekend?(end_date)
+  end
+
+  def start_date_not_in_future
+    errors.add :start_date, 'cannot be in future' if start_date && start_date > Date.today
   end
 
   def end_date_not_in_future
