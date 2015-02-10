@@ -124,6 +124,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.4.2)
+    rspec-collection_matchers (1.0.0)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.0.3)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.3)
@@ -197,6 +199,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.0)
   rails_12factor
+  rspec-collection_matchers
   rspec-rails
   sass-rails (~> 5.0)
   shoulda
