@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
   validate :end_date_not_weekend
   validate :start_date_not_in_future
   validate :end_date_not_in_future
+  validate :end_date_not_before_start_date
 
   def work_days_count
     max_date = end_date || Date.today
@@ -35,5 +36,9 @@ class Task < ActiveRecord::Base
 
   def end_date_not_in_future
     errors.add :end_date, 'cannot be in future' if end_date && end_date > Date.today
+  end
+
+  def end_date_not_before_start_date
+    errors.add :end_date, 'cannot be before start date' if start_date && end_date && end_date < start_date
   end
 end

@@ -71,6 +71,11 @@ describe Task do
         expect_invalid_end_date 1.day.from_now
       end
 
+      it 'cannot be before start date' do
+        task = build :task, start_date: '2015-02-04', end_date: '2015-02-03'
+        expect(task).to have(1).errors_on(:end_date)
+      end
+
       def expect_invalid_end_date(end_date)
         task = build :task, end_date: end_date
         expect(task).to have(1).errors_on(:end_date)
