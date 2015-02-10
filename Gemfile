@@ -23,6 +23,7 @@ end
 
 group :test do
   gem 'sqlite3'
+  gem 'rspec-rails'
 end
 
 group :production do
