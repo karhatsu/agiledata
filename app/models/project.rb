@@ -75,8 +75,8 @@ class Project < ActiveRecord::Base
     chosen_tasks = tasks.select {|task| task.end_date}
     weeks = days.size.to_f / 5
     if prev_weeks && days.size.to_f/5 > prev_weeks
-      min_date = days[days.size - 2 - 5*prev_weeks]
-      max_date = days[days.size - 2]
+      min_date = days[days.size - 1 - 5*prev_weeks]
+      max_date = days[days.size - 1]
       chosen_tasks = chosen_tasks.select {|task| task.end_date >= min_date && task.end_date <= max_date}
       weeks = prev_weeks
     end
