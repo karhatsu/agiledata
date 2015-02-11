@@ -11,7 +11,8 @@ class Task < ActiveRecord::Base
   validate :end_date_not_before_start_date
 
   def work_days_count
-    max_date = end_date || Date.today
+    return nil unless end_date
+    max_date = end_date
     count = 0
     date = start_date
     while date <= max_date

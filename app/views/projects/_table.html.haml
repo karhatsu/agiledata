@@ -32,7 +32,7 @@
   - @tasks.each_with_index do |task, task_no|
     %tr
       %td= task_no+1
-      - days.each do |day|
+      - days.each_with_index do |day, day_index|
         - if day < task.start_date || (task.end_date && task.end_date < day)
           %td &nbsp;
         - elsif day == task.start_date
@@ -40,5 +40,6 @@
           - if task.end_date
             %td.active{colspan: work_days_count}= work_days_count
           - else
-            %td.unfinished{colspan: work_days_count} ?
+            - colspan = days.length - day_index
+            %td.unfinished{colspan: colspan} ?
       %td= task_no+1
