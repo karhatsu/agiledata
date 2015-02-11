@@ -9,6 +9,12 @@ class Project < ActiveRecord::Base
     tasks.minimum('start_date')
   end
 
+  def max_date
+    return Date.yesterday if Date.today.wday == 6
+    return Date.yesterday.yesterday if Date.today.wday == 0
+    Date.today
+  end
+
   def days
     days = []
     max = max_date
@@ -97,10 +103,6 @@ class Project < ActiveRecord::Base
 
   def lead_times(tasks)
     tasks.map {|task| task.work_days_count}
-  end
-
-  def max_date
-    Date.today
   end
 
   def avg_days_per_task(last=nil, last_days=nil)
