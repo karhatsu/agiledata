@@ -5,6 +5,10 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def min_date
+    tasks.minimum('start_date')
+  end
+
   def days
     days = []
     max = max_date
@@ -93,10 +97,6 @@ class Project < ActiveRecord::Base
 
   def lead_times(tasks)
     tasks.map {|task| task.work_days_count}
-  end
-
-  def min_date
-    tasks.minimum('start_date')
   end
 
   def max_date
