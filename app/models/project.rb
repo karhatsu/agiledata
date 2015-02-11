@@ -16,9 +16,10 @@ class Project < ActiveRecord::Base
   end
 
   def days
+    date = min_date
+    return [] unless date
     days = []
     max = max_date
-    date = min_date
     while date <= max
       days << date unless weekend?(date)
       date = date + 1

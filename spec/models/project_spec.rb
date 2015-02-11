@@ -56,4 +56,33 @@ describe Project do
       end
     end
   end
+
+  describe '#days' do
+    let(:project) { build :project }
+
+    context 'when no tasks' do
+      it 'is empty array' do
+        expect(project.days).to eq []
+      end
+    end
+
+    context 'when min date is today (and not weekend)' do
+      let(:today) { Date.new(2015, 2, 10) }
+      it 'returns today in an array' do
+        allow(project).to receive(:min_date).and_return(today)
+        allow(project).to receive(:max_date).and_return(today)
+        expect(project.days).to eq [today]
+      end
+    end
+
+    context 'when start date is before end date' do
+      it 'returns all dates between them excluding weekends' do
+        allow(project).to receive(:min_date).and_return(Date.new(2015, 1, 30))
+        allow(project).to receive(:max_date).and_return(Date.new(2015, 2, 10))
+        expect(project.days).to eq [Date.new(2015, 1, 30), Date.new(2015, 2, 2), Date.new(2015, 2, 3),
+                                       Date.new(2015, 2, 4), Date.new(2015, 2, 5), Date.new(2015, 2, 6),
+                                       Date.new(2015, 2, 9), Date.new(2015, 2, 10)]
+      end
+    end
+  end
 end
