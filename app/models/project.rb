@@ -16,15 +16,9 @@ class Project < ActiveRecord::Base
   end
 
   def days
-    date = min_date
-    return [] unless date
-    days = []
-    max = max_date
-    while date <= max
-      days << date unless weekend?(date)
-      date = date + 1
-    end
-    days
+    min = min_date
+    return [] unless min
+    (min..max_date).select {|date| !weekend?(date)}
   end
 
   def days_hash(default_value=nil)
