@@ -28,9 +28,10 @@ class Project < ActiveRecord::Base
   end
 
   def avg_wip(last_days=nil)
-    wips = wip_per_day.values
-    wips = wips.last(last_days) if last_days
-    wips.reduce(:+).to_f / wips.size
+    daily_wips = wip_per_day.values
+    return nil if daily_wips.empty?
+    daily_wips = daily_wips.last(last_days) if last_days
+    daily_wips.reduce(:+).to_f / daily_wips.size
   end
 
   def weekly_throughput

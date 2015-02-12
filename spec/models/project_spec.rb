@@ -99,4 +99,35 @@ describe Project do
       end
     end
   end
+
+  describe '#avg_wip' do
+    let(:project) { build :project }
+
+    context 'when no data' do
+      it 'returns nil' do
+        expect(project).to receive(:wip_per_day).and_return({})
+        expect(project.avg_wip).to be_nil
+      end
+    end
+
+    context 'when data available' do
+      let(:wip_per_day) { {'day 1' => 1, 'day 2' => 3, 'day 3' => 0, 'day 4' => 2} }
+
+      before do
+        expect(project).to receive(:wip_per_day).and_return(wip_per_day)
+      end
+
+      context 'and total avg wanted' do
+        it 'returns average of daily wips' do
+          expect(project.avg_wip).to eq 1.5
+        end
+      end
+
+      context 'and only last 2 days wanted' do
+        it 'returns average of last 2 days wips' do
+          expect(project.avg_wip(2)).to eq 1.0
+        end
+      end
+    end
+  end
 end
