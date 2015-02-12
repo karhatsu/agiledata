@@ -22,12 +22,7 @@ class Project < ActiveRecord::Base
   def wip_per_day
     hash = dates_hash 0
     tasks.each do |task|
-      date = task.start_date
-      max = task.end_date || Date.today
-      while date <= max
-        hash[date] = hash[date] + 1 unless weekend? date
-        date = date + 1
-      end
+      task.dates.inject(hash) { |hash, date| hash[date] = hash[date] + 1; hash }
     end
     hash
   end
