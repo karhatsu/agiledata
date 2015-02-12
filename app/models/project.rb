@@ -15,15 +15,15 @@ class Project < ActiveRecord::Base
     Date.today
   end
 
-  def days
+  def dates
     min = min_date
     return [] unless min
     (min..max_date).select {|date| !weekend?(date)}
   end
 
-  def days_hash(default_value=nil)
+  def dates_hash(default_value=nil)
     hash = Hash.new
-    days.each {|day| hash[day] = default_value}
+    dates.each {|day| hash[day] = default_value}
     hash
   end
 
@@ -40,7 +40,7 @@ class Project < ActiveRecord::Base
   end
 
   def wip_per_day
-    hash = days_hash 0
+    hash = dates_hash 0
     tasks.each do |task|
       date = task.start_date
       max = task.end_date || Date.today
@@ -78,10 +78,10 @@ class Project < ActiveRecord::Base
 
   def avg_throughput(prev_weeks=nil)
     chosen_tasks = tasks.select {|task| task.end_date}
-    weeks = days.size.to_f / 5
-    if prev_weeks && days.size.to_f/5 > prev_weeks
-      min_date = days[days.size - 1 - 5*prev_weeks]
-      max_date = days[days.size - 1]
+    weeks = dates.size.to_f / 5
+    if prev_weeks && dates.size.to_f/5 > prev_weeks
+      min_date = dates[dates.size - 1 - 5*prev_weeks]
+      max_date = dates[dates.size - 1]
       chosen_tasks = chosen_tasks.select {|task| task.end_date >= min_date && task.end_date <= max_date}
       weeks = prev_weeks
     end
