@@ -16,9 +16,7 @@ class Project < ActiveRecord::Base
   end
 
   def dates
-    min = min_date
-    return [] unless min
-    (min..max_date).select {|date| !weekend?(date)}
+    date_range min_date, max_date
   end
 
   def wip_per_day
