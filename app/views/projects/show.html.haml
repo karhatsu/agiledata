@@ -3,7 +3,9 @@
 - if @project.tasks.empty?
   No tasks
 - else
-  %h2 Statistics
+  %h2#statistics
+    Statistics
+    %a.anchor{href: '#statistics'} get here
   .stats_summary
     = render partial: 'stats_item', locals: { title: 'Avg weekly throughput', unit: 'per week',
         left_value: @project.avg_throughput, right_value: @project.avg_throughput(3), right_title: 'Last 3 w' }
@@ -14,7 +16,9 @@
     = render partial: 'stats_item', locals: { title: 'Avg time between done', unit: 'work days: lead time / WIP',
         left_value: @project.avg_days_per_task, right_value: @project.avg_days_per_task(5, 14), right_title: 'Last 5' }
     .clear
-  %h2 Forecasts
+  %h2#forecasts
+    Forecasts
+    %a.anchor{href: '#forecasts'} get here
   How long will it take to build next 10 items?
   .stats_summary
     = render partial: 'stats_item', locals: { title: 'Based on throughput', unit: 'work days',
