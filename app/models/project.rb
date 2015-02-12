@@ -21,24 +21,6 @@ class Project < ActiveRecord::Base
     (min..max_date).select {|date| !weekend?(date)}
   end
 
-  def dates_hash(default_value=nil)
-    hash = Hash.new
-    dates.each {|day| hash[day] = default_value}
-    hash
-  end
-
-  def week_hash(default_value=nil)
-    hash = Hash.new
-    min_week = min_date.strftime('%W').to_i
-    max_week = max_date.strftime('%W').to_i
-    week = min_week
-    while week <= max_week
-      hash[week] = default_value
-      week = week + 1
-    end
-    hash
-  end
-
   def wip_per_day
     hash = dates_hash 0
     tasks.each do |task|
@@ -96,10 +78,6 @@ class Project < ActiveRecord::Base
     times.reduce(:+).to_f / times.size
   end
 
-  def lead_times(tasks)
-    tasks.map {|task| task.work_days_count}
-  end
-
   def avg_days_per_task(last=nil, last_days=nil)
     wip = avg_wip(last_days)
     avg_lead_time(last) / wip
@@ -116,5 +94,29 @@ class Project < ActiveRecord::Base
     wip = avg_wip last_days
     return nil if wip.to_i == 0
     tasks_count.to_f * lt / wip
+  end
+
+  private
+
+  def dates_hash(default_value=nil)
+    hash = Hash.new
+    dates.each {|day| hash[day] = default_value}
+    hash
+  end
+
+  def week_hash(default_value=nil)
+    hash = Hash.new
+    min_week = min_date.strftime('%W').to_i
+    max_week = max_date.strftime('%W').to_i
+    week = min_week
+    while week <= max_week
+      hash[week] = default_value
+      week = week + 1
+    end
+    hash
+  end
+
+  def lead_times(tasks)
+    tasks.map {|task| task.work_days_count}
   end
 end
