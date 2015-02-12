@@ -27,11 +27,7 @@ class Project < ActiveRecord::Base
       date = task.start_date
       max = task.end_date || Date.today
       while date <= max
-        if hash[date].nil?
-          hash[date] = 1
-        else
-          hash[date] = hash[date] + 1
-        end
+        hash[date] = hash[date] + 1 unless weekend? date
         date = date + 1
       end
     end
