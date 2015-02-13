@@ -72,13 +72,14 @@ describe Project do
   end
 
   describe '#wip_per_day' do
-    let(:project) { create :project }
-
     it 'returns empty hash when no tasks' do
       expect(Project.new.wip_per_day).to eq({})
     end
 
     context 'when project has tasks' do
+      let(:project) { create :project }
+      let(:today) { Date.new(2015, 2, 12) }
+
       before do
         project.tasks << Task.new(start_date: '2015-01-30', end_date: '2015-02-03')
         project.tasks << Task.new(start_date: '2015-02-02', end_date: '2015-02-04')
@@ -86,7 +87,8 @@ describe Project do
         project.tasks << Task.new(start_date: '2015-02-10', end_date: nil)
         project.tasks << Task.new(start_date: '2015-02-12', end_date: nil)
         expect(project).to receive(:min_date).and_return(Date.new(2015, 1, 28))
-        expect(project).to receive(:max_date).and_return(Date.new(2015, 2, 12))
+        expect(project).to receive(:max_date).and_return(today)
+        allow(Date).to receive(:today).and_return(today)
       end
 
       it 'calculates wip for each work day using task start and end dates' do
