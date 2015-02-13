@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  include WeekendHelper
+  include WeekendAwareCalendar
 
   belongs_to :project
 

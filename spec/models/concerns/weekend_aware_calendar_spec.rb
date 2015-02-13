@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe WeekendHelper do
+describe WeekendAwareCalendar do
   class FakeModel
-    include WeekendHelper
+    include WeekendAwareCalendar
   end
 
   let(:model) { FakeModel.new }

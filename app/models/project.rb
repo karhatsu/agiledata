@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  include Calculator, WeekendHelper
+  include Calculator, WeekendAwareCalendar
 
   has_many :tasks, -> { order(:start_date, :end_date) }
 
