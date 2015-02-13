@@ -33,7 +33,7 @@ describe Task do
       end
 
       it 'cannot be in future' do
-        expect_invalid_start_date 1.day.from_now
+        expect_invalid_start_date get_future_work_day
       end
 
       def expect_invalid_start_date(start_date)
@@ -68,7 +68,7 @@ describe Task do
       end
 
       it 'cannot be in future' do
-        expect_invalid_end_date 1.day.from_now
+        expect_invalid_end_date get_future_work_day
       end
 
       it 'cannot be before start date' do
@@ -84,6 +84,16 @@ describe Task do
       def expect_valid_end_date(end_date)
         task = build :task, end_date: end_date
         expect(task).to be_valid
+      end
+    end
+
+    def get_future_work_day
+      if Date.tomorrow.saturday?
+        3.days.from_now
+      elsif Date.tomorrow.sunday?
+        2.days.from_now
+      else
+        1.day.from_now
       end
     end
   end
