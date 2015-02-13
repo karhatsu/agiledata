@@ -29,7 +29,6 @@ class Project < ActiveRecord::Base
 
   def avg_wip(last_days=nil)
     daily_wips = wip_per_day.values
-    return nil if daily_wips.empty?
     daily_wips = daily_wips.last(last_days) if last_days
     average daily_wips
   end
