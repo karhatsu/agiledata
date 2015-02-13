@@ -33,3 +33,7 @@
     color: #fff;
     background-color: #dd0000;
 }
+
+#data-table #wip-row {
+    border-bottom: solid 2px #000;
+}
