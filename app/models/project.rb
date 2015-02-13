@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  include WeekendHelper
+  include Calculator, WeekendHelper
 
   has_many :tasks, -> { order(:start_date, :end_date) }
 
@@ -31,7 +31,7 @@ class Project < ActiveRecord::Base
     daily_wips = wip_per_day.values
     return nil if daily_wips.empty?
     daily_wips = daily_wips.last(last_days) if last_days
-    daily_wips.reduce(:+).to_f / daily_wips.size
+    average daily_wips
   end
 
   def weekly_throughput
