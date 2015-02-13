@@ -38,8 +38,8 @@
         - elsif day == task.start_date
           - work_days_count = task.work_days_count
           - if task.end_date
-            %td.active{colspan: work_days_count}= work_days_count
+            %td.active{colspan: work_days_count, title: task.name}= work_days_count
           - else
             - colspan = dates.length - day_index
-            %td.unfinished{colspan: colspan} ?
+            %td.unfinished{colspan: colspan, title: task.name} ?
       %td= task_no+1
