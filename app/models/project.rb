@@ -37,7 +37,7 @@ class Project < ActiveRecord::Base
     hash = week_hash(0)
     tasks.each do |task|
       next unless task.end_date
-      week = task.end_date.strftime('%W').to_i
+      week = task.end_date.beginning_of_week
       if hash[week].nil?
         hash[week] = 1
       else
@@ -95,8 +95,8 @@ class Project < ActiveRecord::Base
 
   def week_hash(default_value=nil)
     hash = Hash.new
-    min_week = min_date.strftime('%W').to_i
-    max_week = max_date.strftime('%W').to_i
+    min_week = min_date.beginning_of_week
+    max_week = max_date.beginning_of_week
     week = min_week
     while week <= max_week
       hash[week] = default_value
