@@ -278,4 +278,30 @@ describe Project do
       end
     end
   end
+
+  describe '#lead_time_wip_forecast_for 15 tasks' do
+    let(:project) { build :project }
+
+    context 'when no tasks' do
+      it 'is nil' do
+        expect(project.lead_time_wip_forecast_for(20)).to be_nil
+      end
+    end
+
+    context 'when average lead time is 4 days and average wip is 2' do
+      it 'is 30 work days' do
+        expect(project).to receive(:avg_lead_time).and_return(4)
+        expect(project).to receive(:avg_wip).and_return(2)
+        expect(project.lead_time_wip_forecast_for(15)).to eq(30)
+      end
+    end
+
+    context 'when average lead time is 6 days for last 10 tasks and average wip is 4 for last 20 days' do
+      it 'is 22.5 work days' do
+        expect(project).to receive(:avg_lead_time).with(10).and_return(6)
+        expect(project).to receive(:avg_wip).with(20).and_return(4)
+        expect(project.lead_time_wip_forecast_for(15, 10, 20)).to eq(22.5)
+      end
+    end
+  end
 end
