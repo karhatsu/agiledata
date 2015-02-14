@@ -45,9 +45,10 @@ class Project < ActiveRecord::Base
 
   def avg_throughput(prev_weeks=nil)
     chosen_tasks = finished_tasks
+    return nil if chosen_tasks.empty?
     weeks = dates.size.to_f / 5
     if prev_weeks && dates.size.to_f/5 > prev_weeks
-      min_date = dates[dates.size - 1 - 5*prev_weeks]
+      min_date = dates[dates.size - 5*prev_weeks]
       max_date = dates[dates.size - 1]
       chosen_tasks = chosen_tasks.select {|task| task.end_date >= min_date && task.end_date <= max_date}
       weeks = prev_weeks
