@@ -35,16 +35,11 @@ class Project < ActiveRecord::Base
 
   def weekly_throughput
     hash = week_hash(0)
-    tasks.each do |task|
-      next unless task.end_date
+    tasks.select {|task| task.end_date}.inject(hash) do |hash, task|
       week = task.end_date.beginning_of_week
-      if hash[week].nil?
-        hash[week] = 1
-      else
-        hash[week] = hash[week] + 1
-      end
+      hash[week] = hash[week] + 1
+      hash
     end
-    hash
   end
 
   def avg_throughput(prev_weeks=nil)
@@ -95,6 +90,7 @@ class Project < ActiveRecord::Base
 
   def week_hash(default_value=nil)
     hash = Hash.new
+    return hash if tasks.empty?
     min_week = min_date.beginning_of_week
     max_week = max_date.beginning_of_week
     week = min_week

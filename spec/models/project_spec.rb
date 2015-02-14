@@ -132,4 +132,43 @@ describe Project do
       end
     end
   end
+
+  describe '#weekly_throughput' do
+    context 'when no tasks' do
+      it 'returns empty hash' do
+        expect(Project.new.weekly_throughput).to eq({})
+      end
+    end
+
+    context 'when tasks' do
+      let(:project) { create :project }
+      let(:today) { Date.new(2015, 2, 11) }
+      before do
+        create_task '2015-01-16', '2015-01-19'
+        create_task '2015-01-19', '2015-01-22'
+
+        create_task '2015-01-27', '2015-02-02'
+        create_task '2015-02-03', '2015-02-04'
+        create_task '2015-02-03', '2015-02-06'
+
+        create_task '2015-02-05', '2015-02-11'
+
+        create_task '2015-02-04', nil
+
+        allow(Date).to receive(:today).and_return(today)
+      end
+
+      it 'returns hash where key is beginning of the week and value is finished tasks count for that week' do
+        expect(project.weekly_throughput).to eq({Date.new(2015, 1, 12).beginning_of_week => 0,
+                                                 Date.new(2015, 1, 19).beginning_of_week => 2,
+                                                 Date.new(2015, 1, 26).beginning_of_week => 0,
+                                                 Date.new(2015, 2, 2).beginning_of_week => 3,
+                                                 Date.new(2015, 2, 9).beginning_of_week => 1})
+      end
+
+      def create_task(start_date, end_date)
+        project.tasks << build(:task, project: project, start_date: start_date, end_date: end_date)
+      end
+    end
+  end
 end
