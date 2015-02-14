@@ -226,4 +226,32 @@ describe Project do
       end
     end
   end
+
+  describe '#avg_days_per_task' do
+    context 'when no tasks' do
+      it 'is nil' do
+        expect(Project.new.avg_days_per_task).to be_nil
+      end
+    end
+
+    context 'when tasks' do
+      let(:project) { build :project }
+      let(:last_days) { 10 }
+      let(:last_tasks) { 5 }
+      let(:avg_wip) { 2.6 }
+      let(:avg_lead_time) { 3.7 }
+
+      it 'is average lead time for all tasks divided by average wip for all tasks' do
+        expect(project).to receive(:avg_wip).with(nil).and_return(avg_wip)
+        expect(project).to receive(:avg_lead_time).with(nil).and_return(avg_lead_time)
+        expect(project.avg_days_per_task()).to eq(3.7 / 2.6)
+      end
+
+      it 'for last 5 tasks and last 10 days is average lead time for last 5 tasks divided by average wip for last 10 days' do
+        expect(project).to receive(:avg_wip).with(last_days).and_return(avg_wip)
+        expect(project).to receive(:avg_lead_time).with(last_tasks).and_return(avg_lead_time)
+        expect(project.avg_days_per_task(last_tasks, last_days)).to eq(3.7 / 2.6)
+      end
+    end
+  end
 end
