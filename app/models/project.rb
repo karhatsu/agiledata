@@ -56,7 +56,7 @@ class Project < ActiveRecord::Base
       chosen_tasks = chosen_tasks.select {|task| task.end_date >= min_date && task.end_date <= max_date}
       weeks = prev_weeks
     end
-    chosen_tasks.size / weeks
+    chosen_tasks.size.to_f / weeks
   end
 
   def avg_lead_time(last=nil)
@@ -100,7 +100,7 @@ class Project < ActiveRecord::Base
     week = min_week
     while week <= max_week
       hash[week] = default_value
-      week = week + 1
+      week = week + 7
     end
     hash
   end
