@@ -59,9 +59,8 @@ class Project < ActiveRecord::Base
   def avg_lead_time(last=nil)
     chosen_tasks = finished_tasks
     chosen_tasks = chosen_tasks.last(last) if last.to_i > 0
-    times = lead_times(chosen_tasks)
-    return nil if times.empty?
-    times.reduce(:+).to_f / times.size
+    return nil if chosen_tasks.empty?
+    average lead_times(chosen_tasks)
   end
 
   def avg_days_per_task(last=nil, last_days=nil)

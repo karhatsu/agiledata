@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Project do
   def create_task(start_date, end_date=nil)
-    project.tasks << build(:task, project: project, start_date: start_date, end_date: end_date)
+    create(:task, project: project, start_date: start_date, end_date: end_date)
   end
 
   it 'can be created' do
@@ -197,6 +197,32 @@ describe Project do
 
       it 'average throughput for last two weeks is finished count during last 14 days divided by 2' do
         expect(project.avg_throughput(2)).to eq(5.0 / 2.0)
+      end
+    end
+  end
+
+  describe '#avg_lead_time' do
+    context 'when no tasks' do
+      it 'is nil' do
+        expect(Project.new.avg_lead_time).to be_nil
+      end
+    end
+
+    context 'when tasks' do
+      let(:project) { create :project }
+      before do
+        create_task '2015-02-02', '2015-02-03' # 2
+        create_task '2015-02-03', '2015-02-05' # 3
+        create_task '2015-02-09', '2015-02-13' # 5
+        create_task '2015-02-10'
+      end
+
+      it 'is the average of task work day counts for finished tasks' do
+        expect(project.avg_lead_time).to eq(10.0 / 3)
+      end
+
+      it 'for last 2 tasks is the average of the work day count for last two finished tasks' do
+        expect(project.avg_lead_time(2)).to eq(8.0 / 2)
       end
     end
   end
