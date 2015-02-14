@@ -254,4 +254,28 @@ describe Project do
       end
     end
   end
+
+  describe '#throughput_forecast_for 5 tasks' do
+    let(:project) { build :project }
+
+    context 'when no tasks' do
+      it 'is nil' do
+        expect(project.throughput_forecast_for(5)).to be_nil
+      end
+    end
+
+    context 'when average throughput per week is 2.5' do
+      it 'is 10 work days (2 weeks)' do
+        expect(project).to receive(:avg_throughput).and_return(2.5)
+        expect(project.throughput_forecast_for(5)).to eq(10)
+      end
+    end
+
+    context 'when average throughput for last 4 weeks is 2' do
+      it 'is 12.5 work days (2.5 weeks) when calculated based on last 4 weeks throughput' do
+        expect(project).to receive(:avg_throughput).with(4).and_return(2)
+        expect(project.throughput_forecast_for(5, 4)).to eq(12.5)
+      end
+    end
+  end
 end

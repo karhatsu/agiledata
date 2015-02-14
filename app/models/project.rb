@@ -69,10 +69,10 @@ class Project < ActiveRecord::Base
     avg_lead_time(last_tasks) / wip
   end
 
-  def throughput_forecast_for(tasks_count, last_weeks=nil)
+  def throughput_forecast_for(task_count, last_weeks=nil)
     avg = avg_throughput last_weeks
     return nil if avg.to_f == 0
-    tasks_count.to_f / avg * 5
+    task_count.to_f / avg * 5
   end
 
   def lead_time_wip_forecast_for(tasks_count, last_tasks=nil, last_days=nil)
