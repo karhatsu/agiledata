@@ -1,12 +1,30 @@
 require 'rails_helper'
 
 describe Project do
+  def create_task(start_date, end_date=nil)
+    project.tasks << build(:task, project: project, start_date: start_date, end_date: end_date)
+  end
+
   it 'can be created' do
     create :project
   end
 
   describe 'associations' do
     it { should have_many(:tasks) }
+
+    describe 'finished tasks' do
+      let(:project) { create :project }
+
+      before do
+        create_task '2015-02-02', '2015-02-09'
+        create_task '2015-02-03'
+        create_task '2015-02-04', '2015-02-05'
+      end
+
+      it 'skips tasks without end date' do
+        expect(project.finished_tasks.map {|task| task.start_date.strftime('%Y-%m-%d')}).to eq(['2015-02-02', '2015-02-04'])
+      end
+    end
   end
 
   describe 'validations' do
@@ -17,8 +35,8 @@ describe Project do
     let(:project) { create :project }
 
     before do
-      project.tasks << build(:task, project: project, start_date: '2015-02-02')
-      project.tasks << build(:task, project: project, start_date: '2015-01-29')
+      create_task '2015-02-02'
+      create_task '2015-01-29'
     end
 
     it 'is the smallest task start date' do
@@ -153,7 +171,7 @@ describe Project do
 
         create_task '2015-02-05', '2015-02-11'
 
-        create_task '2015-02-04', nil
+        create_task '2015-02-04'
 
         allow(Date).to receive(:today).and_return(today)
       end
@@ -164,10 +182,6 @@ describe Project do
                                                  Date.new(2015, 1, 26).beginning_of_week => 0,
                                                  Date.new(2015, 2, 2).beginning_of_week => 3,
                                                  Date.new(2015, 2, 9).beginning_of_week => 1})
-      end
-
-      def create_task(start_date, end_date)
-        project.tasks << build(:task, project: project, start_date: start_date, end_date: end_date)
       end
     end
   end

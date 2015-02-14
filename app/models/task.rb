@@ -10,6 +10,10 @@ class Task < ActiveRecord::Base
   validate :end_date_not_in_future
   validate :end_date_not_before_start_date
 
+  def self.finished
+    where 'end_date is not null'
+  end
+
   def work_days_count
     return nil unless end_date
     max_date = end_date
