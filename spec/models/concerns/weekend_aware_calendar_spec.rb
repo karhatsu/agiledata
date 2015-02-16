@@ -58,4 +58,22 @@ describe WeekendAwareCalendar do
       end
     end
   end
+
+  describe '#days_between' do
+    it 'is 0 when same date' do
+      expect(model.days_between(Date.new(2015, 2, 11), Date.new(2015, 2, 11))).to eq 0
+    end
+
+    it 'is 2 when one day in between' do
+      expect(model.days_between(Date.new(2015, 2, 11), Date.new(2015, 2, 13))).to eq 2
+    end
+
+    it 'excludes weekends' do
+      expect(model.days_between(Date.new(2015, 2, 12), Date.new(2015, 2, 16))).to eq 2
+    end
+
+    it 'raises error when date2 is less than date1' do
+      expect { model.days_between(Date.today, 1.day.ago) }.to raise_error
+    end
+  end
 end

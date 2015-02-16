@@ -48,6 +48,16 @@ module Statistics
     avg_lead_time(last_tasks) / wip
   end
 
+  def avg_takt_time
+    takt_times = []
+    prev_task = nil
+    finished_tasks.each do |task|
+      takt_times << days_between(prev_task.end_date, task.end_date) if prev_task
+      prev_task = task
+    end
+    average takt_times
+  end
+
   private
 
   def dates_hash(default_value=nil)

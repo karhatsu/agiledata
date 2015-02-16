@@ -19,10 +19,11 @@ describe Project do
         create_task '2015-02-02', '2015-02-09'
         create_task '2015-02-03'
         create_task '2015-02-04', '2015-02-05'
+        create_task '2015-02-04', '2015-02-06'
       end
 
-      it 'skips tasks without end date' do
-        expect(project.finished_tasks.map {|task| task.start_date.strftime('%Y-%m-%d')}).to eq(['2015-02-02', '2015-02-04'])
+      it 'skips tasks without end date, orders by end date' do
+        expect(project.finished_tasks.map {|task| task.end_date.strftime('%Y-%m-%d')}).to eq(['2015-02-05', '2015-02-06', '2015-02-09'])
       end
     end
   end
@@ -115,6 +116,10 @@ describe Project do
 
       it 'average days per task is nil' do
         expect(project.avg_days_per_task).to be_nil
+      end
+
+      it 'average takt time is nil' do
+        expect(project.avg_takt_time).to be_nil
       end
 
       it 'throughput forecast is nil' do
@@ -244,6 +249,22 @@ describe Project do
           expect(project).to receive(:avg_wip).with(last_days).and_return(avg_wip)
           expect(project).to receive(:avg_lead_time).with(last_tasks).and_return(avg_lead_time)
           expect(project.avg_days_per_task(last_tasks, last_days)).to eq(3.7 / 2.6)
+        end
+      end
+
+      describe '#avg_takt_time' do
+        let(:project) { create :project }
+
+        before do
+          create_task '2015-02-02', '2015-02-03'
+          create_task '2015-02-02', '2015-02-04'
+          create_task '2015-02-04', '2015-02-06'
+          create_task '2015-02-03', '2015-02-06'
+          create_task '2015-02-06', '2015-02-11'
+        end
+
+        it 'is average time between end (work) dates of finished tasks' do
+          expect(project.avg_takt_time).to eq((1+2+0+3).to_f / 4)
         end
       end
 

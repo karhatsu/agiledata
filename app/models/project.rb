@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   include Calculator, WeekendAwareCalendar, Statistics, Forecasts
 
   has_many :tasks, -> { order(:start_date, :end_date) }
-  has_many :finished_tasks, -> { finished }, class_name: Task
+  has_many :finished_tasks, -> { finished.order(:end_date) }, class_name: Task
 
   validates :name, presence: true
 
