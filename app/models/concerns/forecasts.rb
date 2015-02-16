@@ -11,4 +11,10 @@ module Forecasts
     return nil if wip.to_i == 0
     tasks_count.to_f * lt / wip
   end
+
+  def takt_time_forecast_for(task_count, last_weeks=nil)
+    tt = avg_takt_time last_weeks
+    return nil unless tt
+    task_count.to_f * tt
+  end
 end

@@ -129,6 +129,10 @@ describe Project do
       it 'lead time / WIP forecast is nil' do
         expect(project.lead_time_wip_forecast_for(20)).to be_nil
       end
+
+      it 'takt time forecast is nil' do
+        expect(project.takt_time_forecast_for(8)).to be_nil
+      end
     end
 
     context 'when tasks' do
@@ -308,6 +312,24 @@ describe Project do
             expect(project).to receive(:avg_lead_time).with(10).and_return(6)
             expect(project).to receive(:avg_wip).with(20).and_return(4)
             expect(project.lead_time_wip_forecast_for(15, 10, 20)).to eq(22.5)
+          end
+        end
+      end
+
+      describe '#takt_time_forecast_for 5 tasks' do
+        let(:project) { build :project }
+
+        context 'when average takt time is 2.2 days' do
+          it 'is 11 work days' do
+            expect(project).to receive(:avg_takt_time).and_return(2.2)
+            expect(project.takt_time_forecast_for(5)).to eq(11)
+          end
+        end
+
+        context 'when average takt time is 1.5 days for last 4 weeks' do
+          it 'is 7.5 work days' do
+            expect(project).to receive(:avg_takt_time).with(4).and_return(1.5)
+            expect(project.takt_time_forecast_for(5, 4)).to eq(7.5)
           end
         end
       end
