@@ -10,7 +10,7 @@
     = render partial: 'stats_item', locals: { title: 'Avg weekly throughput', unit: 'per week',
         left_value: @project.avg_throughput, right_value: @project.avg_throughput(3), right_title: 'Last 3 w' }
     = render partial: 'stats_item', locals: { title: 'Average takt time', unit: 'work days',
-        left_value: @project.avg_takt_time, right_value: @project.avg_takt_time, right_title: 'TBD' }
+        left_value: @project.avg_takt_time, right_value: @project.avg_takt_time(3), right_title: 'Last 3 w' }
     = render partial: 'stats_item', locals: { title: 'Average lead time', unit: 'work days',
         left_value: @project.avg_lead_time, right_value: @project.avg_lead_time(5), right_title: 'Last 5' }
     = render partial: 'stats_item', locals: { title: 'Average WIP', unit: 'per day',

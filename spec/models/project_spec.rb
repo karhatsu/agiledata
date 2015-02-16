@@ -254,17 +254,23 @@ describe Project do
 
       describe '#avg_takt_time' do
         let(:project) { create :project }
+        let(:today) { Date.new(2015, 2, 18) }
 
         before do
-          create_task '2015-02-02', '2015-02-03'
+          allow(Date).to receive(:today).and_return(today)
+          create_task '2015-02-02', '2015-02-02'
           create_task '2015-02-02', '2015-02-04'
-          create_task '2015-02-04', '2015-02-06'
-          create_task '2015-02-03', '2015-02-06'
+          create_task '2015-02-04', '2015-02-05'
+          create_task '2015-02-03', '2015-02-05'
           create_task '2015-02-06', '2015-02-11'
         end
 
         it 'is average time between end (work) dates of finished tasks' do
-          expect(project.avg_takt_time).to eq((1+2+0+3).to_f / 4)
+          expect(project.avg_takt_time).to eq((2+1+0+4).to_f / 4)
+        end
+
+        it 'for last 2 weeks is average takt time for tasks finished during last 2 weeks' do
+          expect(project.avg_takt_time(2)).to eq((1+0+4).to_f / 3)
         end
       end
 

@@ -48,11 +48,14 @@ module Statistics
     avg_lead_time(last_tasks) / wip
   end
 
-  def avg_takt_time
+  def avg_takt_time(prev_weeks=nil)
     takt_times = []
     prev_task = nil
+    min_date = max_date - 7 * prev_weeks if prev_weeks
     finished_tasks.each do |task|
-      takt_times << days_between(prev_task.end_date, task.end_date) if prev_task
+      if prev_weeks.nil? || task.end_date > min_date
+        takt_times << days_between(prev_task.end_date, task.end_date) if prev_task
+      end
       prev_task = task
     end
     average takt_times
