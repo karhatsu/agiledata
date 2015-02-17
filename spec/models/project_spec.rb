@@ -10,6 +10,7 @@ describe Project do
   end
 
   describe 'associations' do
+    it { should have_many(:holidays) }
     it { should have_many(:tasks) }
 
     describe 'finished tasks' do

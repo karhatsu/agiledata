@@ -98,6 +98,16 @@ describe Task do
     end
   end
 
+  describe '#holidays' do
+    it 'returns project holidays' do
+      project = build :project
+      task = build :task, project: project
+      holidays = double
+      expect(project).to receive(:holidays).and_return(holidays)
+      expect(task.holidays).to eq holidays
+    end
+  end
+
   describe '#work_days_count' do
     context 'when end date defined' do
       it 'returns days count without holidays' do
