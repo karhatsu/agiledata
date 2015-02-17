@@ -13,7 +13,7 @@
     border: 1px solid #ccc;
     margin: 0;
     text-align: center;
-    width: 50px;
+    width: 18px;
 }
 
 #data-table th {
@@ -34,6 +34,11 @@
     background-color: #dd0000;
 }
 
-#data-table #wip-row {
+#data-table #tasks-row {
     border-bottom: solid 2px #000;
+}
+
+#data-table #tasks-row td {
+    border-left: none;
+    border-right: none;
 }
