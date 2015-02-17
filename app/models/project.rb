@@ -9,6 +9,10 @@ class Project < ActiveRecord::Base
 
   before_create :generate_key
 
+  def to_param
+    key
+  end
+
   def min_date
     tasks.minimum('start_date')
   end

@@ -48,6 +48,13 @@ describe Project do
     end
   end
 
+  describe '#to_param' do
+    it 'returns key' do
+      project = create :project
+      expect(project.to_param).to eq project.key
+    end
+  end
+
   describe '#min_date' do
     let(:project) { create :project }
 

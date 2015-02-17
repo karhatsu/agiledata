@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find_by_key(params[:id])
     @tasks = @project.tasks
   end
 end
