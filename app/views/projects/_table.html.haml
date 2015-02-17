@@ -4,14 +4,16 @@
 %table#data-table
   %tr
     %th Weekly
+    - colspan = 0
+    - first_date = dates[0]
     - dates.each_with_index do |day, i|
-      - if i == 0
-        %td{colspan: 2 * (6 - day.wday)}
-          = throughput[day.beginning_of_week]
-      - elsif day.wday == 1
-        - colspan = dates.size - i < 5 ? dates.size - i : 5
+      - if day.cweek == first_date.cweek
+        - colspan = colspan + 1
+      - if day.cweek != first_date.cweek || i + 1 == dates.length
         %td{colspan: 2 * colspan}
-          = throughput[day.beginning_of_week]
+          = throughput[first_date.beginning_of_week]
+        - colspan = 1
+        - first_date = dates[i + 1] if i + 1 < dates.length
     %th Weekly
   %tr
     %th Day
