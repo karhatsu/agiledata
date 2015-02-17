@@ -1,4 +1,4 @@
-module WeekendAwareCalendar
+module WorkDayAwareCalendar
   def weekend?(date)
     [0, 6].include? date.wday
   end

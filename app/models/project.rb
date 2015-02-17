@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  include Calculator, WeekendAwareCalendar, Statistics, Forecasts
+  include Calculator, WorkDayAwareCalendar, Statistics, Forecasts
 
   has_many :tasks, -> { order(:start_date, :end_date) }
   has_many :finished_tasks, -> { finished.order(:end_date) }, class_name: Task
