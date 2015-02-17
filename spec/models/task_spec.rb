@@ -100,7 +100,7 @@ describe Task do
 
   describe '#work_days_count' do
     context 'when end date defined' do
-      it 'returns days count without weekends' do
+      it 'returns days count without holidays' do
         task = build :task, start_date: '2015-01-29', end_date: '2015-02-10'
         expect(task.work_days_count).to eq 9
       end

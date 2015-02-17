@@ -4,8 +4,8 @@ class Task < ActiveRecord::Base
   belongs_to :project
 
   validates :start_date, presence: true
-  validate :start_date_not_weekend
-  validate :end_date_not_weekend
+  validate :start_date_not_holiday
+  validate :end_date_not_holiday
   validate :start_date_not_in_future
   validate :end_date_not_in_future
   validate :end_date_not_before_start_date
@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
     count = 0
     date = start_date
     while date <= max_date
-      count = count + 1 unless weekend?(date)
+      count = count + 1 unless holiday?(date)
       date = date + 1
     end
     count
@@ -36,12 +36,12 @@ class Task < ActiveRecord::Base
   end
 
   private
-  def start_date_not_weekend
-    errors.add :start_date, 'cannot be weekend day' if start_date && weekend?(start_date)
+  def start_date_not_holiday
+    errors.add :start_date, 'cannot be holiday day' if start_date && holiday?(start_date)
   end
 
-  def end_date_not_weekend
-    errors.add :end_date, 'cannot be weekend day' if end_date && weekend?(end_date)
+  def end_date_not_holiday
+    errors.add :end_date, 'cannot be holiday day' if end_date && holiday?(end_date)
   end
 
   def start_date_not_in_future

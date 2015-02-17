@@ -7,7 +7,7 @@ describe WorkDayAwareCalendar do
 
   let(:model) { FakeModel.new }
 
-  describe '#weekend?' do
+  describe '#holiday?' do
     it 'true for Saturday and Sunday' do
       expect_weekend_for_wday 6, true
       expect_weekend_for_wday 0, true
@@ -21,9 +21,9 @@ describe WorkDayAwareCalendar do
       expect_weekend_for_wday 5, false
     end
 
-    def expect_weekend_for_wday(wday, weekend)
+    def expect_weekend_for_wday(wday, holiday)
       date = double wday: wday
-      expect(model.weekend? date).to eq(weekend)
+      expect(model.holiday? date).to eq(holiday)
     end
   end
 
@@ -40,7 +40,7 @@ describe WorkDayAwareCalendar do
       end
     end
 
-    context 'when min date is today (and not weekend)' do
+    context 'when min date is today (and not holiday)' do
       let(:today) { Date.new(2015, 2, 10) }
       it 'returns today in an array' do
         expect(model.date_range(today, today)).to eq [today]
@@ -48,7 +48,7 @@ describe WorkDayAwareCalendar do
     end
 
     context 'when start date is before end date' do
-      it 'returns all date_range between them excluding weekends' do
+      it 'returns all date_range between them excluding holidays' do
         min_date = Date.new(2015, 1, 30)
         max_date = Date.new(2015, 2, 10)
         expected_dates = [Date.new(2015, 1, 30), Date.new(2015, 2, 2), Date.new(2015, 2, 3),
@@ -68,7 +68,7 @@ describe WorkDayAwareCalendar do
       expect(model.days_between(Date.new(2015, 2, 11), Date.new(2015, 2, 13))).to eq 2
     end
 
-    it 'excludes weekends' do
+    it 'excludes holidays' do
       expect(model.days_between(Date.new(2015, 2, 12), Date.new(2015, 2, 16))).to eq 2
     end
 

@@ -1,11 +1,11 @@
 module WorkDayAwareCalendar
-  def weekend?(date)
+  def holiday?(date)
     [0, 6].include? date.wday
   end
 
   def date_range(min_date, max_date)
     return [] unless min_date && max_date
-    (min_date..max_date).select {|date| !weekend?(date)}
+    (min_date..max_date).select {|date| !holiday?(date)}
   end
 
   def days_between(date1, date2)
@@ -14,7 +14,7 @@ module WorkDayAwareCalendar
     end_date = date2.to_date
     days = 0
     while date < end_date
-      days = days + 1 unless weekend? date
+      days = days + 1 unless holiday? date
       date = date + 1
     end
     days
