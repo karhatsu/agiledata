@@ -31,6 +31,10 @@ class Task < ActiveRecord::Base
     date_range start_date, max_date
   end
 
+  def finished?
+    end_date
+  end
+
   private
   def start_date_not_weekend
     errors.add :start_date, 'cannot be weekend day' if start_date && weekend?(start_date)

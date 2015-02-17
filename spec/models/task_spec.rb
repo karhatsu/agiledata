@@ -135,4 +135,14 @@ describe Task do
       end
     end
   end
+
+  describe '#finished?' do
+    it 'is true when end date' do
+      expect(Task.new(end_date: '2015-02-09')).to be_finished
+    end
+
+    it 'is false when no end date' do
+      expect(Task.new(end_date: nil)).not_to be_finished
+    end
+  end
 end
