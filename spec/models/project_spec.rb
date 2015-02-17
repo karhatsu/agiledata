@@ -141,12 +141,12 @@ describe Project do
         let(:today) { Date.new(2015, 2, 13) }
 
         before do
-          project.tasks << Task.new(start_date: '2015-01-30', end_date: '2015-02-03')
-          project.tasks << Task.new(start_date: '2015-02-02', end_date: '2015-02-04')
-          project.tasks << Task.new(start_date: '2015-02-06', end_date: '2015-02-10')
-          project.tasks << Task.new(start_date: '2015-02-09', end_date: '2015-02-09')
-          project.tasks << Task.new(start_date: '2015-02-10', end_date: nil)
-          project.tasks << Task.new(start_date: '2015-02-12', end_date: nil)
+          create_task '2015-01-30', '2015-02-03'
+          create_task '2015-02-02', '2015-02-04'
+          create_task '2015-02-06', '2015-02-10'
+          create_task '2015-02-09', '2015-02-09'
+          create_task '2015-02-10'
+          create_task '2015-02-12'
           expect(project).to receive(:min_date).and_return(Date.new(2015, 1, 28))
           expect(project).to receive(:max_date).and_return(today)
           allow(Date).to receive(:today).and_return(today)
