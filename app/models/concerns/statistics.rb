@@ -2,7 +2,12 @@ module Statistics
   def wip_per_day
     hash = dates_hash 0
     tasks.each do |task|
-      task.dates.inject(hash) { |hash, date| hash[date] = hash[date] + 1; hash }
+      dates = task.dates
+      finished = task.finished?
+      dates.each_with_index do |date, i|
+        increase = first_or_last(dates, i, finished) ? 0.5 : 1
+        hash[date] = hash[date] + increase
+      end
     end
     hash
   end
@@ -67,6 +72,10 @@ module Statistics
     hash = Hash.new
     dates.each {|day| hash[day] = default_value}
     hash
+  end
+
+  def first_or_last(dates, index, finished)
+    index == 0 || (finished && index + 1 == dates.length)
   end
 
   def week_hash(default_value=nil)

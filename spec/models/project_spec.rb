@@ -138,12 +138,13 @@ describe Project do
     context 'when tasks' do
       describe '#wip_per_day' do
         let(:project) { create :project }
-        let(:today) { Date.new(2015, 2, 12) }
+        let(:today) { Date.new(2015, 2, 13) }
 
         before do
           project.tasks << Task.new(start_date: '2015-01-30', end_date: '2015-02-03')
           project.tasks << Task.new(start_date: '2015-02-02', end_date: '2015-02-04')
           project.tasks << Task.new(start_date: '2015-02-06', end_date: '2015-02-10')
+          project.tasks << Task.new(start_date: '2015-02-09', end_date: '2015-02-09')
           project.tasks << Task.new(start_date: '2015-02-10', end_date: nil)
           project.tasks << Task.new(start_date: '2015-02-12', end_date: nil)
           expect(project).to receive(:min_date).and_return(Date.new(2015, 1, 28))
@@ -151,13 +152,14 @@ describe Project do
           allow(Date).to receive(:today).and_return(today)
         end
 
-        it 'calculates wip for each work day using task start and end dates' do
+        it 'is amount of tasks in progress each day so that start and end dates count to 0.5' do
           expect(project.wip_per_day).to eq({Date.new(2015, 1, 28) => 0, Date.new(2015, 1, 29) => 0,
-                                             Date.new(2015, 1, 30) => 1, Date.new(2015, 2, 2) => 2,
-                                             Date.new(2015, 2, 3) => 2, Date.new(2015, 2, 4) => 1,
-                                             Date.new(2015, 2, 5) => 0, Date.new(2015, 2, 6) => 1,
-                                             Date.new(2015, 2, 9) => 1, Date.new(2015, 2, 10) => 2,
-                                             Date.new(2015, 2, 11) => 1, Date.new(2015, 2, 12) => 2})
+                                             Date.new(2015, 1, 30) => 0.5, Date.new(2015, 2, 2) => 1.5,
+                                             Date.new(2015, 2, 3) => 1.5, Date.new(2015, 2, 4) => 0.5,
+                                             Date.new(2015, 2, 5) => 0, Date.new(2015, 2, 6) => 0.5,
+                                             Date.new(2015, 2, 9) => 1.5, Date.new(2015, 2, 10) => 1.0,
+                                             Date.new(2015, 2, 11) => 1, Date.new(2015, 2, 12) => 1.5,
+                                             Date.new(2015, 2, 13) => 2})
         end
       end
 
