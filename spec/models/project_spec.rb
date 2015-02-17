@@ -144,7 +144,7 @@ describe Project do
           create_task '2015-01-30', '2015-02-03'
           create_task '2015-02-02', '2015-02-04'
           create_task '2015-02-06', '2015-02-10'
-          create_task '2015-02-09', '2015-02-09'
+          create_task '2015-02-09', '2015-02-10'
           create_task '2015-02-10'
           create_task '2015-02-12'
           expect(project).to receive(:min_date).and_return(Date.new(2015, 1, 28))
@@ -157,9 +157,19 @@ describe Project do
                                              Date.new(2015, 1, 30) => 0.5, Date.new(2015, 2, 2) => 1.5,
                                              Date.new(2015, 2, 3) => 1.5, Date.new(2015, 2, 4) => 0.5,
                                              Date.new(2015, 2, 5) => 0, Date.new(2015, 2, 6) => 0.5,
-                                             Date.new(2015, 2, 9) => 1.5, Date.new(2015, 2, 10) => 1.0,
+                                             Date.new(2015, 2, 9) => 1.5, Date.new(2015, 2, 10) => 1.5,
                                              Date.new(2015, 2, 11) => 1, Date.new(2015, 2, 12) => 1.5,
                                              Date.new(2015, 2, 13) => 2})
+        end
+
+        context 'when having tasks that are finished on same day as started' do
+          before do
+            create_task '2015-02-05', '2015-02-05'
+          end
+
+          it 'increase WIP by 1 for those dates' do
+            expect(project.wip_per_day[Date.new(2015, 2, 5)]).to eq 1
+          end
         end
       end
 

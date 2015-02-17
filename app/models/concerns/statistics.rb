@@ -5,8 +5,7 @@ module Statistics
       dates = task.dates
       finished = task.finished?
       dates.each_with_index do |date, i|
-        increase = first_or_last(dates, i, finished) ? 0.5 : 1
-        hash[date] = hash[date] + increase
+        hash[date] = hash[date] + wip_increase_for_day(dates, i, finished)
       end
     end
     hash
@@ -74,8 +73,18 @@ module Statistics
     hash
   end
 
-  def first_or_last(dates, index, finished)
-    index == 0 || (finished && index + 1 == dates.length)
+  def wip_increase_for_day(dates, date_index, finished)
+    if dates.length == 1
+      1
+    elsif first_or_last dates, date_index, finished
+      0.5
+    else
+      1
+    end
+  end
+
+  def first_or_last(dates, date_index, finished)
+    date_index == 0 || (finished && date_index + 1 == dates.length)
   end
 
   def week_hash(default_value=nil)
