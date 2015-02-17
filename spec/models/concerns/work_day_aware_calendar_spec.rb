@@ -3,27 +3,39 @@ require 'rails_helper'
 describe WorkDayAwareCalendar do
   class FakeModel
     include WorkDayAwareCalendar
+
+    def holidays
+      [Holiday.new(date: christmas_day), Holiday.new(date: new_year_day)]
+    end
+
+    def christmas_day
+      Date.new(2014, 12, 25)
+    end
+
+    def new_year_day
+      Date.new(2015, 1, 1)
+    end
   end
 
   let(:model) { FakeModel.new }
 
   describe '#holiday?' do
     it 'true for Saturday and Sunday' do
-      expect_weekend_for_wday 6, true
-      expect_weekend_for_wday 0, true
+      expect(model.holiday? Date.new(2015, 2, 14)).to be_truthy
+      expect(model.holiday? Date.new(2015, 2, 15)).to be_truthy
     end
 
     it 'false for Monday-Friday' do
-      expect_weekend_for_wday 1, false
-      expect_weekend_for_wday 2, false
-      expect_weekend_for_wday 3, false
-      expect_weekend_for_wday 4, false
-      expect_weekend_for_wday 5, false
+      expect(model.holiday? Date.new(2015, 2, 9)).to be_falsey
+      expect(model.holiday? Date.new(2015, 2, 10)).to be_falsey
+      expect(model.holiday? Date.new(2015, 2, 11)).to be_falsey
+      expect(model.holiday? Date.new(2015, 2, 12)).to be_falsey
+      expect(model.holiday? Date.new(2015, 2, 13)).to be_falsey
     end
 
-    def expect_weekend_for_wday(wday, holiday)
-      date = double wday: wday
-      expect(model.holiday? date).to eq(holiday)
+    it 'true for a pre-defined holiday date' do
+      expect(model.holiday? model.christmas_day).to be_truthy
+      expect(model.holiday? model.new_year_day).to be_truthy
     end
   end
 

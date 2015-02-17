@@ -1,6 +1,6 @@
 module WorkDayAwareCalendar
   def holiday?(date)
-    [0, 6].include? date.wday
+    weekend?(date) || predefined_holiday(date)
   end
 
   def date_range(min_date, max_date)
@@ -18,5 +18,15 @@ module WorkDayAwareCalendar
       date = date + 1
     end
     days
+  end
+
+  private
+
+  def weekend?(date)
+    [0, 6].include? date.wday
+  end
+
+  def predefined_holiday(date)
+    holidays.map {|holiday| holiday.date}.include?(date)
   end
 end
