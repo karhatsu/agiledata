@@ -7,6 +7,8 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true
 
+  before_create :generate_key
+
   def min_date
     tasks.minimum('start_date')
   end
@@ -19,5 +21,11 @@ class Project < ActiveRecord::Base
 
   def dates
     date_range min_date, max_date
+  end
+
+  private
+
+  def generate_key
+    self.key = (('a'..'z').to_a+('A'..'Z').to_a).shuffle[0,30].join
   end
 end

@@ -33,6 +33,21 @@ describe Project do
     it { should validate_presence_of(:name) }
   end
 
+  describe 'callbacks' do
+    it 'generates key on create' do
+      project = create :project
+      expect(project.key).not_to be_nil
+      expect(project.key.length).to eq 30
+    end
+
+    it 'keeps the same key on update' do
+      project = create :project
+      key = project.key
+      project.save!
+      expect(project.key).to eq key
+    end
+  end
+
   describe '#min_date' do
     let(:project) { create :project }
 
