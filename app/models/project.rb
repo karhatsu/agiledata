@@ -27,6 +27,10 @@ class Project < ActiveRecord::Base
     date_range min_date, max_date
   end
 
+  def create_task(name, start_date)
+    tasks << Task.new(name: name, start_date: start_date)
+  end
+
   private
 
   def generate_key

@@ -113,6 +113,20 @@ describe Project do
     end
   end
 
+  describe '#create_task' do
+    let(:project) { create :project }
+
+    it 'creates task with given name and start date' do
+      project.create_task 'New task', '2015-02-23'
+      task = Task.last
+      expect(task).not_to be_nil
+      expect(task.project).to eq(project)
+      expect(task.name).to eq('New task')
+      expect(task.start_date.strftime('%Y-%m-%d')).to eq('2015-02-23')
+      expect(task.end_date).to be_nil
+    end
+  end
+
   describe 'statistics and forecasts' do
     context 'when no tasks' do
       let(:project) { build :project }
