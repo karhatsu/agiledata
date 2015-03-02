@@ -9,12 +9,12 @@
     - dates.each_with_index do |day, i|
       - if day.cweek == first_date.cweek
         - colspan = colspan + 1
-      - if day.cweek != first_date.cweek || i + 1 == dates.length
+      - if day.cweek != first_date.cweek
         %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
         - colspan = 1
-        - first_date = dates[i + 1] if i + 1 < dates.length
-    - if colspan > 0
-      %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
+        - first_date = dates[i] if i < dates.length
+      - if i + 1 == dates.length
+        %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
     %th Weekly
   %tr
     %th Day
