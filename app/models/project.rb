@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
     date_range min_date, max_date
   end
 
-  def create_task(name, start_date)
+  def create_task(name, start_date=Date.today)
     tasks << Task.new(name: name, start_date: start_date)
   end
 

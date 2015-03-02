@@ -125,6 +125,16 @@ describe Project do
       expect(task.start_date.strftime('%Y-%m-%d')).to eq('2015-02-23')
       expect(task.end_date).to be_nil
     end
+
+    context 'when start date not given' do
+      it 'start date is today' do
+        allow(Date).to receive(:today).and_return(Date.new(2015, 3, 2))
+        project.create_task 'New task'
+        task = Task.last
+        expect(task.name).to eq('New task')
+        expect(task.start_date.strftime('%Y-%m-%d')).to eq('2015-03-02')
+      end
+    end
   end
 
   describe 'statistics and forecasts' do
