@@ -33,5 +33,6 @@
         left_value: @project.lead_time_wip_forecast_for(10), right_value: @project.lead_time_wip_forecast_for(10, 5, 14),
         right_title: 'Last 5/14d', precision: 0 }
     .clear
+  = link_to 'New task', new_project_task_path(@project)
   #table-wrapper
     = render 'table'

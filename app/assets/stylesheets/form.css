@@ -1,0 +1,20 @@
+.form_errors {
+    color: #fff;
+    background-color: #dd0000;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+.form_field {
+    margin: 5px 0;
+}
+
+.form_field label {
+    display: inline-block;
+    min-width: 130px;
+}
+
+.form_field .field_with_errors {
+    color: #dd0000;
+    display: inline-block;
+}

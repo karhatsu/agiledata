@@ -1,0 +1,14 @@
+- content_for :title, "#{@project.name} - New task"
+
+%h2 New task
+- if @task.errors.any?
+  .form_errors
+    = @task.errors.full_messages.join(', ')
+= form_for [@project, @task] do |f|
+  .form_field
+    = f.label :name, 'Name (optional)'
+    = f.text_field :name
+  .form_field
+    = f.label :start_date
+    = f.date_select :start_date
+  = submit_tag 'Save'
