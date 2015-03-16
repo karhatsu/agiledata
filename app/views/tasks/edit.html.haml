@@ -8,10 +8,10 @@
     = f.text_field :name
   .form_field
     = f.label :start_date
-    = f.date_select :start_date
+    = f.date_select :start_date, start_year: 2013, end_year: Date.today.year
   .form_field
     = f.label :end_date
-    = f.date_select :end_date, include_blank: true
+    = f.date_select :end_date, include_blank: true, start_year: 2013, end_year: Date.today.year
     %a.today_link{href: 'javascript:chooseTodayForEndDate();'} Today
   = submit_tag 'Update'
 :javascript
