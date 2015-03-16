@@ -18,3 +18,7 @@
     color: #dd0000;
     display: inline-block;
 }
+
+.today_link {
+    font-size: 90%;
+}

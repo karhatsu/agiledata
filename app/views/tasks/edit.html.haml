@@ -12,4 +12,12 @@
   .form_field
     = f.label :end_date
     = f.date_select :end_date, include_blank: true
+    %a.today_link{href: 'javascript:chooseTodayForEndDate();'} Today
   = submit_tag 'Update'
+:javascript
+  function chooseTodayForEndDate() {
+    var today = new Date();
+    document.getElementById('task_end_date_1i').value = today.getFullYear();
+    document.getElementById('task_end_date_2i').value = today.getMonth() + 1;
+    document.getElementById('task_end_date_3i').value = today.getDate();
+  }
