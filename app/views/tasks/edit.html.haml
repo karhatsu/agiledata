@@ -1,6 +1,6 @@
-- content_for :title, "#{@project.name} - New task"
+- content_for :title, "#{@project.name} - Update task"
 
-%h2 New task
+%h2 Update task
 = render 'form_errors'
 = form_for [@project, @task] do |f|
   .form_field
@@ -9,4 +9,7 @@
   .form_field
     = f.label :start_date
     = f.date_select :start_date
-  = submit_tag 'Save'
+  .form_field
+    = f.label :end_date
+    = f.date_select :end_date, include_blank: true
+  = submit_tag 'Update'

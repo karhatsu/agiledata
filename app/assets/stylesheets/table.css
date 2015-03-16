@@ -34,6 +34,10 @@
     background-color: #dd0000;
 }
 
+#data-table td a {
+    color: #fff !important;
+}
+
 #data-table #tasks-row {
     border-bottom: solid 2px #000;
 }
@@ -41,4 +45,10 @@
 #data-table #tasks-row td {
     border-left: none;
     border-right: none;
+}
+
+td .cell_link {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
 }

@@ -14,6 +14,21 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @project = Project.find_by_key params[:project_id]
+    @task = @project.tasks.find params[:id]
+  end
+
+  def update
+    @project = Project.find_by_key params[:project_id]
+    @task = @project.tasks.find params[:id]
+    if @task.update(task_attributes)
+      redirect_to project_path(@project)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def task_attributes
