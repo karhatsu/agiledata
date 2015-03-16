@@ -38,6 +38,16 @@
     color: #fff !important;
 }
 
+#data-table td.active a:hover {
+    color: #138815 !important;
+    background-color: #fff;
+}
+
+#data-table td.unfinished a:hover {
+    color: #dd0000 !important;
+    background-color: #fff;
+}
+
 #data-table #tasks-row {
     border-bottom: solid 2px #000;
 }
