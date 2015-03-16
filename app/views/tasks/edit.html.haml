@@ -16,7 +16,7 @@
   = submit_tag 'Update'
 %hr
 %h2 Delete task
-= button_to 'Delete task', project_task_path(@project, @task), method: :delete
+= button_to 'Delete task', project_task_path(@project, @task), method: :delete, data: {confirm: 'Are you sure?'}
 :javascript
   function chooseTodayForEndDate() {
     var today = new Date();
