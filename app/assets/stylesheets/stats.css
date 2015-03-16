@@ -1,0 +1,49 @@
+.stats_summary {
+    margin: 0 0 10px;
+}
+
+.stats_item {
+    background-color: #eee;
+    border-radius: 3px;
+    box-shadow: #666666 5px 5px 5px;
+    float: left;
+    margin: 10px 30px 20px 0;
+    min-width: 200px;
+    padding: 0;
+    text-align: center;
+}
+
+.stats_item .label {
+    border-bottom: solid 2px #666;
+    font-weight: bold;
+    margin: 0 0 5px;
+    padding: 10px;
+}
+
+.stats_item .data {
+    padding: 10px;
+}
+
+.stats_content {
+    float: left;
+    width: 95px;
+}
+
+.stats_content.left {
+    border-right: solid 1px #666;
+}
+
+.stats_content .sub_label {
+    font-weight: bold;
+}
+
+.stats_value {
+    color: #138815;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.stats_item .unit {
+    color: #138815;
+    margin: 3px 0 0;
+}
