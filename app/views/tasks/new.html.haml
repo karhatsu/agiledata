@@ -1,7 +1,7 @@
 - content_for :title, "#{@project.name} - New task"
 
 %h2 New task
-= render 'form_errors'
+= render partial: 'shared/form_errors', locals: {item: @task}
 = form_for [@project, @task] do |f|
   .form_field
     = f.label :name, 'Name (optional)'

@@ -1,0 +1,18 @@
+.home_section
+  %h2 Welcome to Agiledata
+  %div
+    Use your whiteboard to follow your tasks. Use Agiledata to collect statistics of tasks and show forecasts for them.
+.home_section
+  %h2 Start in 10 seconds
+  %div
+    No logins required, just type your project name to the field below and you will get a secret URL.
+  .new_project_form
+    = render partial: 'shared/form_errors', locals: {item: @project}
+    = form_for @project do |f|
+      .form_field
+        = f.label :name, 'Project name'
+        = f.text_field :name
+      = submit_tag 'Start!'
+%hr
+.footer
+  Powered by the spirit of #NoEstimates.
