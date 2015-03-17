@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_attributes)
     if @project.save
-      redirect_to project_path(@project)
+      redirect_to project_path(@project, initial: true)
     else
       render :index
     end

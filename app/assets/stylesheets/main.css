@@ -28,3 +28,11 @@ a.anchor {
     margin: 0;
     padding: 0;
 }
+
+.project_url {
+    background-color: #777;
+    border-radius: 2px;
+    color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+}

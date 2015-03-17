@@ -1,7 +1,13 @@
 - content_for :title, @project.name
 
+- if params[:initial]
+  %h2 You did it! Project created!
+  Now save this URL and share it to your team mates so you can get here later (remember, no logins):
+  .project_url
+    = project_url @project
+
 - if @project.tasks.empty?
-  No tasks
+  = link_to 'Start by adding the first task', new_project_task_path(@project)
 - else
   %h2#statistics
     Statistics
