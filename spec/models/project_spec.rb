@@ -182,6 +182,50 @@ describe Project do
       end
     end
 
+    context 'when one task that is still in progress' do
+      let(:project) { create :project }
+      let(:today) { Date.new(2015, 3, 13) }
+
+      before do
+        create_task '2015-03-11'
+        allow(project).to receive(:min_date).and_return(Date.new(2015, 3, 11))
+        allow(project).to receive(:max_date).and_return(today)
+        allow(Date).to receive(:today).and_return(today)
+      end
+
+      it 'weekly throughput shows zero for the given week' do
+        expect(project.weekly_throughput).to eq({Date.new(2015, 3, 13).beginning_of_week => 0})
+      end
+
+      it 'average throughput is nil' do
+        expect(project.avg_throughput).to be_nil
+      end
+
+      it 'average lead time is nil' do
+        expect(project.avg_lead_time).to be_nil
+      end
+
+      it 'average days per task is nil' do
+        expect(project.avg_days_per_task).to be_nil
+      end
+
+      it 'average takt time is nil' do
+        expect(project.avg_takt_time).to be_nil
+      end
+
+      it 'throughput forecast is nil' do
+        expect(project.throughput_forecast_for(5)).to be_nil
+      end
+
+      it 'lead time / WIP forecast is nil' do
+        expect(project.lead_time_wip_forecast_for(20)).to be_nil
+      end
+
+      it 'takt time forecast is nil' do
+        expect(project.takt_time_forecast_for(8)).to be_nil
+      end
+    end
+
     context 'when tasks' do
       describe '#wip_per_day' do
         let(:project) { create :project }

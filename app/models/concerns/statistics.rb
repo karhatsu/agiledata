@@ -49,7 +49,9 @@ module Statistics
   def avg_days_per_task(last_tasks=nil, last_days=nil)
     wip = avg_wip(last_days)
     return nil unless wip
-    avg_lead_time(last_tasks) / wip
+    lead_time = avg_lead_time(last_tasks)
+    return nil unless lead_time
+    lead_time / wip
   end
 
   def avg_takt_time(prev_weeks=nil)
