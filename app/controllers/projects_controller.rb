@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :set_task_count, only: :show
+
   def index
     @project = Project.new
   end
@@ -13,13 +15,17 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @task_count = 10
     @project = Project.find_by_key(params[:id])
     return redirect_to(projects_path) unless @project
     @tasks = @project.tasks
   end
 
   private
+
+  def set_task_count
+    @task_count = params[:task_count].to_i
+    @task_count = 10 unless @task_count > 0
+  end
 
   def project_attributes
     params.require(:project).permit([:name])

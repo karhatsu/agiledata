@@ -42,3 +42,12 @@ input[type='submit']:hover {
     background-color: #fff;
     color: #138815;
 }
+
+.task_count_form {
+    display: inline;
+}
+
+.task_count_field {
+    display: inline;
+    width: 30px;
+}
