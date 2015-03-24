@@ -36,10 +36,18 @@ a.anchor {
     padding: 0;
 }
 
-.project_url {
+.project_url, .example_project_info {
     background-color: #777;
     border-radius: 2px;
     color: #fff;
     padding: 10px;
     margin: 10px 0;
+}
+
+.example_project_info {
+    font-style: italic;
+}
+
+.example_project_info a {
+    color: #fff;
 }

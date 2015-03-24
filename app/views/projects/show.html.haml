@@ -1,5 +1,11 @@
 - content_for :title, @project.name
 
+- if @project.example?
+  .example_project_info
+    You are playing with example project data. You can create new tasks and update or delete the existing ones
+    as you wish.
+    = link_to 'Back to front page', root_path
+
 - if params[:initial]
   %h2 You did it! Project created!
   Now save this URL and share it to your team mates so you can get here later (remember, no logins):
