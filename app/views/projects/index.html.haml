@@ -13,3 +13,6 @@
         = f.label :name, 'Project name'
         = f.text_field :name
       = submit_tag 'Start!'
+.home_section
+  %h2 Try it out
+  = button_to 'Create an example project', example_projects_path, method: :post
