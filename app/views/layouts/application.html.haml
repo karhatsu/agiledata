@@ -6,7 +6,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %h1= yield(:title).blank? ? 'Agiledata' : yield(:title)
+    %h1= yield(:title).blank? ? 'Agiledata' : "Agiledata - #{yield(:title)}"
     .main-content
       = yield
       .footer
