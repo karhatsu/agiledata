@@ -7,11 +7,13 @@ body {
 h1 {
     background-color: #777;
     color: #fff;
+    font-size: 1.6em;
     margin: 0 0 10px 0;
     padding: 10px 5px;
 }
 
 h2 {
+    font-size: 1.3em;
     margin: 3px 0;
 }
 
