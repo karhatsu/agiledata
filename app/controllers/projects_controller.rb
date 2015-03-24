@@ -23,8 +23,14 @@ class ProjectsController < ApplicationController
   private
 
   def set_task_count
-    @task_count = params[:task_count].to_i
-    @task_count = 10 unless @task_count > 0
+    if params[:task_count].to_i > 0
+      @task_count = params[:task_count].to_i
+      cookies[:task_count] = @task_count
+    elsif cookies[:task_count].to_i > 0
+      @task_count = cookies[:task_count].to_i
+    else
+      @task_count = 10
+    end
   end
 
   def project_attributes
