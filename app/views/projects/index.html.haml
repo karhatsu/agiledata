@@ -10,8 +10,8 @@
     = render partial: 'shared/form_errors', locals: {item: @project}
     = form_for @project do |f|
       = f.text_field :name, placeholder: 'Project name'
-      %br
       = submit_tag 'Start!'
 .home_section
-  %h2 Try it out
+  %h2 Or try it out
   = button_to 'Create an example project', example_projects_path, method: :post
+.clear

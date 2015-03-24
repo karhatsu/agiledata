@@ -1,5 +1,7 @@
 .home_section {
-    margin: 10px 0 40px;
+    float: left;
+    margin: 10px 20px 40px 10px;
+    width: 250px;
 }
 
 .home_section h2 {
