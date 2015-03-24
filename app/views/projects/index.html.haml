@@ -9,9 +9,8 @@
   .new_project_form
     = render partial: 'shared/form_errors', locals: {item: @project}
     = form_for @project do |f|
-      .form_field
-        = f.label :name, 'Project name'
-        = f.text_field :name
+      = f.text_field :name, placeholder: 'Project name'
+      %br
       = submit_tag 'Start!'
 .home_section
   %h2 Try it out
