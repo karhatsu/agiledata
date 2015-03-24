@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @task_count = 10
     @project = Project.find_by_key(params[:id])
     return redirect_to(projects_path) unless @project
     @tasks = @project.tasks
