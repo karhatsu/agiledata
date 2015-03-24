@@ -14,7 +14,7 @@
     min-width: 130px;
 }
 
-.form_field .field_with_errors {
+.field_with_errors {
     color: #dd0000;
     display: inline-block;
 }
