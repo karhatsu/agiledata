@@ -2,61 +2,63 @@
 - wip_per_day = @project.wip_per_day
 - throughput = @project.weekly_throughput
 %table#data-table
-  %tr
-    %th Weekly
-    - colspan = 0
-    - first_date = dates[0]
-    - dates.each_with_index do |day, i|
-      - if day.cweek == first_date.cweek
-        - colspan = colspan + 1
-      - if day.cweek != first_date.cweek
-        %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
-        - colspan = 1
-        - first_date = dates[i] if i < dates.length
-      - if i + 1 == dates.length
-        %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
-    %th Weekly
-  %tr
-    %th Day
-    - dates.each do |day|
-      %td{colspan: 2}= day.strftime('%a')
-    %th Day
-  %tr
-    %th Date
-    - dates.each do |day|
-      %td{colspan: 2}= day.strftime('%d.%m')
-    %th Date
-  %tr
-    %th WIP
-    - dates.each do |day|
-      %td{colspan: 2}
-        = wip_per_day[day]
-    %th WIP
-  %tr#tasks-row
-    %th Tasks
-    - (dates.length * 2).times do
-      %td
-    %th Tasks
-  - @tasks.each_with_index do |task, task_no|
+  %thead
     %tr
-      %td= task_no+1
-      - dates.each_with_index do |day, day_index|
-        - if day < task.start_date || (task.end_date && task.end_date < day)
-          %td{colspan: 2} &nbsp;
-        - elsif day == task.start_date
-          - work_days_count = task.work_days_count
-          - title = task.name
-          - if work_days_count == 1
-            %td.active{colspan: 2, title: title}
-              = cell_edit_link @project, task, work_days_count
-          - else
-            %td &nbsp;
-            - if task.end_date
-              %td.active{colspan: 2 * (work_days_count - 1), title: title}
+      %th Weekly
+      - colspan = 0
+      - first_date = dates[0]
+      - dates.each_with_index do |day, i|
+        - if day.cweek == first_date.cweek
+          - colspan = colspan + 1
+        - if day.cweek != first_date.cweek
+          %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
+          - colspan = 1
+          - first_date = dates[i] if i < dates.length
+        - if i + 1 == dates.length
+          %td{colspan: 2 * colspan}= throughput[first_date.beginning_of_week]
+      %th Weekly
+    %tr
+      %th Day
+      - dates.each do |day|
+        %td{colspan: 2}= day.strftime('%a')
+      %th Day
+    %tr
+      %th Date
+      - dates.each do |day|
+        %td{colspan: 2}= day.strftime('%d.%m')
+      %th Date
+    %tr
+      %th WIP
+      - dates.each do |day|
+        %td{colspan: 2}
+          = wip_per_day[day]
+      %th WIP
+    %tr#tasks-row
+      %th Tasks
+      - (dates.length * 2).times do
+        %td
+      %th Tasks
+  %tbody
+    - @tasks.each_with_index do |task, task_no|
+      %tr
+        %td= task_no+1
+        - dates.each_with_index do |day, day_index|
+          - if day < task.start_date || (task.end_date && task.end_date < day)
+            %td{colspan: 2} &nbsp;
+          - elsif day == task.start_date
+            - work_days_count = task.work_days_count
+            - title = task.name
+            - if work_days_count == 1
+              %td.active{colspan: 2, title: title}
                 = cell_edit_link @project, task, work_days_count
-              %td &nbsp;
             - else
-              - colspan = dates.length - day_index
-              %td.unfinished{colspan: 2 * colspan - 1, title: title}
-                = cell_edit_link @project, task, '?'
-      %td= task_no+1
+              %td &nbsp;
+              - if task.end_date
+                %td.active{colspan: 2 * (work_days_count - 1), title: title}
+                  = cell_edit_link @project, task, work_days_count
+                %td &nbsp;
+              - else
+                - colspan = dates.length - day_index
+                %td.unfinished{colspan: 2 * colspan - 1, title: title}
+                  = cell_edit_link @project, task, '?'
+        %td= task_no+1
