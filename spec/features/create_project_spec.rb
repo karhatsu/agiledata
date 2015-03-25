@@ -25,6 +25,6 @@ feature 'Create project' do
 
   scenario 'No name given for the project' do
     click_button 'Start!'
-    expect(find('.form_errors')).to have_content("Project name can't be blank")
+    expect_form_error "Project name can't be blank"
   end
 end
