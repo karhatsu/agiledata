@@ -9,7 +9,7 @@
   .new_project_form
     = render partial: 'shared/form_errors', locals: {item: @project}
     = form_for @project do |f|
-      = f.text_field :name, placeholder: 'Project name'
+      = f.text_field :name, placeholder: 'Project name', autofocus: true
       = submit_tag 'Start!'
 .home_section
   %h2 Or try it out
