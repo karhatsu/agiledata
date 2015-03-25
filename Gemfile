@@ -28,6 +28,7 @@ group :test do
   gem 'shoulda'
   gem 'rspec-collection_matchers'
   gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do
