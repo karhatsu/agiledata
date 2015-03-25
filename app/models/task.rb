@@ -39,22 +39,22 @@ class Task < ActiveRecord::Base
 
   private
   def start_date_not_holiday
-    errors.add :start_date, 'cannot be holiday day' if start_date && holiday?(start_date)
+    errors.add :start_date, "(#{start_date}) cannot be holiday day" if start_date && holiday?(start_date)
   end
 
   def end_date_not_holiday
-    errors.add :end_date, 'cannot be holiday day' if end_date && holiday?(end_date)
+    errors.add :end_date, "(#{end_date}) cannot be holiday day" if end_date && holiday?(end_date)
   end
 
   def start_date_not_in_future
-    errors.add :start_date, 'cannot be in future' if start_date && start_date > Date.today
+    errors.add :start_date, "(#{start_date}) cannot be in future" if start_date && start_date > Date.today
   end
 
   def end_date_not_in_future
-    errors.add :end_date, 'cannot be in future' if end_date && end_date > Date.today
+    errors.add :end_date, "(#{end_date}) cannot be in future" if end_date && end_date > Date.today
   end
 
   def end_date_not_before_start_date
-    errors.add :end_date, 'cannot be before start date' if start_date && end_date && end_date < start_date
+    errors.add :end_date, "(#{end_date}) cannot be before start date (#{start_date})" if start_date && end_date && end_date < start_date
   end
 end

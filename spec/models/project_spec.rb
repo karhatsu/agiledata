@@ -471,8 +471,8 @@ describe Project do
       it 'returns the validation errors in an array' do
         errors = project.import_tasks data
         expect(errors.length).to eql 2
-        expect(errors[0]).to eql 'End date cannot be holiday day'
-        expect(errors[1]).to eql 'Start date cannot be holiday day'
+        expect(errors[0]).to eql 'End date (2015-03-01) cannot be holiday day'
+        expect(errors[1]).to eql 'Start date (2015-03-01) cannot be holiday day'
       end
     end
 
