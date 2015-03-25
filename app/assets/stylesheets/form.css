@@ -38,6 +38,10 @@ input[type='submit'] {
     padding: 10px;
 }
 
+input[type='submit'].small_button {
+    padding: 7px;
+}
+
 input[type='submit']:hover {
     background-color: #fff;
     color: #138815;

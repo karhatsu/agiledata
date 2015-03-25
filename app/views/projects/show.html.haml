@@ -37,7 +37,7 @@
   = form_tag project_path(@project, anchor: 'forecasts'), method: :get, class: 'task_count_form' do
     = text_field_tag :task_count, @task_count, maxlength: 3, class: 'task_count_field'
     items?
-    = submit_tag 'Recalculate'
+    = submit_tag 'Recalculate', class: 'small_button'
   = render 'forecasts'
   = link_to 'New task', new_project_task_path(@project)
   #table-wrapper
