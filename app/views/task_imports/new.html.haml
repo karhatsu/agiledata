@@ -1,0 +1,21 @@
+- content_for :title, "#{@project.name} - Import tasks"
+
+%h2 Import tasks
+.import_instructions
+  Paste your task data to the textarea in the format below
+- unless @errors.empty?
+  .form_errors
+    = @errors.join(', ')
+= form_tag project_task_imports_path do
+  %div
+    = text_area_tag :data, '', rows: 10, cols: 50
+  = submit_tag 'Import data'
+%h2 Example data
+.import_example
+  2015-02-12,2015-02-18,The name of the task
+  %br
+  2015-02-27,2015-03-02,
+  %br
+  2015-03-02,2015-03-02,The task above has no name
+  %br
+  2015-03-05,,This task has no end date

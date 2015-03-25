@@ -31,9 +31,31 @@ class Project < ActiveRecord::Base
     tasks << Task.new(name: name, start_date: start_date)
   end
 
+  def import_tasks(data)
+    errors = []
+    tasks = []
+    data.split("\n").each do |row|
+      cols = row.split(',')
+      task = Task.new project: self, start_date: cols[0], end_date: cols[1], name: build_task_name(cols)
+      if task.valid?
+        tasks << task
+      else
+        errors << task.errors.full_messages.join(', ')
+      end
+    end
+    return errors unless errors.empty?
+    tasks.each {|task| task.save!}
+    []
+  end
+
   private
 
   def generate_key
     self.key = (('a'..'z').to_a+('A'..'Z').to_a).shuffle[0,30].join
+  end
+
+  def build_task_name(cols)
+    return cols[2] if cols.length == 2
+    cols[2,cols.length].join(',')
   end
 end

@@ -14,7 +14,7 @@ h1 {
 
 h2 {
     font-size: 1.3em;
-    margin: 3px 0;
+    margin: 20px 0 5px;
 }
 
 .main-content {
@@ -50,4 +50,16 @@ a.anchor {
 
 .example_project_info a {
     color: #fff;
+}
+
+.import_instructions {
+    margin: 10px 0 0;
+}
+
+.import_example {
+    border: solid #ccc 1px;
+    font-family: monospace;
+    margin: 10px 0 10px;
+    max-width: 500px;
+    padding: 10px;
 }

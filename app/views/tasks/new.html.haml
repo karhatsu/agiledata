@@ -10,3 +10,5 @@
     = f.label :start_date
     = f.date_select :start_date, start_year: 2013, end_year: Date.today.year
   = submit_tag 'Save'
+%h2 Import tasks
+= link_to 'Import multiple tasks at once', new_project_task_import_path(@project)

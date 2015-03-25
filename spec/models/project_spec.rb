@@ -438,4 +438,52 @@ describe Project do
       end
     end
   end
+
+  describe '#import_tasks' do
+    let(:project) { create :project }
+
+    context 'when data valid' do
+      let(:data) { "2014-12-12,2014-12-18,The name of the task 1\n2015-02-27,2015-03-02,\n2015-03-02,,Name 3, including comma" }
+
+      it 'creates tasks based on the data' do
+        project.import_tasks data
+        tasks = project.reload.tasks
+        expect(tasks.length).to eql 3
+        expect_task tasks[0], 'The name of the task 1', '2014-12-12', '2014-12-18'
+        expect_task tasks[1], nil, '2015-02-27', '2015-03-02'
+        expect_task tasks[2], 'Name 3, including comma', '2015-03-02', nil
+      end
+
+      it 'returns empty array' do
+        expect(project.import_tasks data).to eql []
+      end
+    end
+
+    context 'when invalid dates in the data' do
+      let(:data) { "2014-12-12,2014-12-18,The name of the task 1\n2015-02-27,2015-03-01,\n2015-03-01,,Name 3" }
+
+      it 'does not create any task' do
+        project.import_tasks data
+        tasks = project.reload.tasks
+        expect(tasks.length).to eql 0
+      end
+
+      it 'returns the validation errors in an array' do
+        errors = project.import_tasks data
+        expect(errors.length).to eql 2
+        expect(errors[0]).to eql 'End date cannot be holiday day'
+        expect(errors[1]).to eql 'Start date cannot be holiday day'
+      end
+    end
+
+    def expect_task(task, name, start_date, end_date)
+      expect(task.name).to eql name
+      expect(task.start_date.strftime('%Y-%m-%d')).to eql start_date
+      if end_date
+        expect(task.end_date.strftime('%Y-%m-%d')).to eql end_date
+      else
+        expect(task.end_date).to be_nil
+      end
+    end
+  end
 end
