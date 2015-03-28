@@ -20,9 +20,11 @@ module WorkDayAwareCalendar
     days
   end
 
-  def latest_work_day
+  def latest_work_day(nth=0)
     date = Date.today
-    while holiday? date
+    n = nth
+    while holiday?(date) || n > 0
+      n -= 1 unless holiday?(date)
       date = date - 1
     end
     date

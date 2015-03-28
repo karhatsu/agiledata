@@ -10,6 +10,7 @@ feature 'Create project' do
     click_button 'Start!'
     expect(page).to have_content('My project')
     expect(find('.project_url')).to have_content(project_url(Project.last))
+    expect(page).not_to have_css('#data-table')
 
     click_link 'Start by adding the first task'
     submit_new_task_form 'My first task', Project.last.latest_work_day

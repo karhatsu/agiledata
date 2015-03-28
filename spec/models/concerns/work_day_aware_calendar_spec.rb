@@ -99,6 +99,10 @@ describe WorkDayAwareCalendar do
       it 'returns today' do
         expect(model.latest_work_day).to eq today
       end
+
+      it 'returns nth work day before that when asked' do
+        expect(model.latest_work_day(4)).to eq(today - 4)
+      end
     end
 
     context 'when today is Sunday' do
@@ -106,12 +110,20 @@ describe WorkDayAwareCalendar do
       it 'returns previous Friday' do
         expect(model.latest_work_day).to eq Date.new(2015, 3, 27)
       end
+
+      it 'returns nth work day before previous Friday when asked' do
+        expect(model.latest_work_day(5)).to eq Date.new(2015, 3, 20)
+      end
     end
 
     context 'when today is holiday' do
       let(:today) { model.new_year_day }
       it 'returns previous work day' do
         expect(model.latest_work_day).to eq(model.new_year_day - 1)
+      end
+
+      it 'returns nth work day before previous work day when asked' do
+        expect(model.latest_work_day(7)).to eq Date.new(2014, 12, 19)
       end
     end
   end
