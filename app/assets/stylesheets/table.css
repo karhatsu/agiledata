@@ -31,7 +31,18 @@
 
 #data-table td.unfinished {
     color: #fff;
+}
+
+#data-table td.unfinished.length_bad {
     background-color: #dd0000;
+}
+
+#data-table td.unfinished.length_worrying {
+    background-color: #ff9e2d;
+}
+
+#data-table td.unfinished.length_ok {
+    background-color: #ffde25;
 }
 
 #data-table td a {
@@ -43,8 +54,18 @@
     background-color: #fff;
 }
 
-#data-table td.unfinished a:hover {
+#data-table td.unfinished.length_bad a:hover {
     color: #dd0000 !important;
+    background-color: #fff;
+}
+
+#data-table td.unfinished.length_worrying a:hover {
+    color: #ff9e2d !important;
+    background-color: #fff;
+}
+
+#data-table td.unfinished.length_ok a:hover {
+    color: #ffde25 !important;
     background-color: #fff;
 }
 
