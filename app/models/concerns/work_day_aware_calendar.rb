@@ -20,6 +20,14 @@ module WorkDayAwareCalendar
     days
   end
 
+  def latest_work_day
+    date = Date.today
+    while holiday? date
+      date = date - 1
+    end
+    date
+  end
+
   private
 
   def weekend?(date)

@@ -88,4 +88,31 @@ describe WorkDayAwareCalendar do
       expect { model.days_between(Date.today, 1.day.ago) }.to raise_error
     end
   end
+
+  describe '#latest_work_day' do
+    before do
+      allow(Date).to receive(:today).and_return(today)
+    end
+
+    context 'when today is work day' do
+      let(:today) { Date.new(2015, 3, 27) }
+      it 'returns today' do
+        expect(model.latest_work_day).to eq today
+      end
+    end
+
+    context 'when today is Sunday' do
+      let(:today) { Date.new(2015, 3, 29) }
+      it 'returns previous Friday' do
+        expect(model.latest_work_day).to eq Date.new(2015, 3, 27)
+      end
+    end
+
+    context 'when today is holiday' do
+      let(:today) { model.new_year_day }
+      it 'returns previous work day' do
+        expect(model.latest_work_day).to eq(model.new_year_day - 1)
+      end
+    end
+  end
 end
