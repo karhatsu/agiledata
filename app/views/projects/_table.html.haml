@@ -40,25 +40,4 @@
       %th Tasks
   %tbody
     - @tasks.each_with_index do |task, task_no|
-      %tr
-        %td= task_no+1
-        - dates.each_with_index do |day, day_index|
-          - if day < task.start_date || (task.end_date && task.end_date < day)
-            %td{colspan: 2} &nbsp;
-          - elsif day == task.start_date
-            - work_days_count = task.work_days_count
-            - title = task.name
-            - if work_days_count == 1
-              %td.active{colspan: 2, title: title}
-                = cell_edit_link @project, task, work_days_count
-            - else
-              %td &nbsp;
-              - if task.end_date
-                %td.active{colspan: 2 * (work_days_count - 1), title: title}
-                  = cell_edit_link @project, task, work_days_count
-                %td &nbsp;
-              - else
-                - colspan = dates.length - day_index
-                %td.unfinished{colspan: 2 * colspan - 1, title: title}
-                  = cell_edit_link @project, task, '?'
-        %td= task_no+1
+      = render partial: 'task_row', locals: {dates: dates, task: task, task_no: task_no}
