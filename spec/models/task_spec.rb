@@ -117,9 +117,12 @@ describe Task do
     end
 
     context 'when end date not defined' do
-      it 'returns nil' do
-        task = build :task, start_date: '2015-01-29', end_date: nil
-        expect(task.work_days_count).to be_nil
+      let(:today) { Date.new(2015, 3, 29) }
+
+      it 'returns days count without holidays using today as end date' do
+        allow(Date).to receive(:today).and_return(today)
+        task = build :task, start_date: '2015-03-20', end_date: nil
+        expect(task.work_days_count).to eq 6
       end
     end
   end

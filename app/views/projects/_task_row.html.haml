@@ -6,7 +6,7 @@
     - elsif day == task.start_date
       - work_days_count = task.work_days_count
       - title = task.name
-      - if work_days_count == 1
+      - if task.end_date && work_days_count == 1
         %td.active{colspan: 2, title: title}
           = cell_edit_link @project, task, work_days_count
       - else
@@ -18,5 +18,5 @@
         - else
           - colspan = dates.length - day_index
           %td.unfinished{colspan: 2 * colspan - 1, title: title}
-            = cell_edit_link @project, task, '?'
+            = cell_edit_link @project, task, "#{work_days_count}?"
   %td= task_no+1

@@ -17,8 +17,7 @@ class Task < ActiveRecord::Base
   end
 
   def work_days_count
-    return nil unless end_date
-    max_date = end_date
+    max_date = end_date || Date.today
     count = 0
     date = start_date
     while date <= max_date
