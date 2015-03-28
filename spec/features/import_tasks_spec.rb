@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'feature_helper'
 
 feature 'Import multiple tasks' do
   given(:project) { create :project }

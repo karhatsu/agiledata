@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'feature_helper'
 
 feature 'Create example project' do
   scenario 'Example project is created' do
