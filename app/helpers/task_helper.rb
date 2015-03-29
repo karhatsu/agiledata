@@ -1,6 +1,6 @@
 module TaskHelper
   def cell_edit_link(project, task, text)
-    text_with_span = "<span class='cell_link'>#{text}</span>"
+    text_with_span = "<span class='cell_link'>#{text}<span class='cell_task_name' style='display: none;'> #{task.name}</span></span>"
     raw link_to(raw(text_with_span), edit_project_task_path(project, task))
   end
 

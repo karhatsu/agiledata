@@ -40,5 +40,16 @@
     = submit_tag 'Recalculate', class: 'small_button'
   = render 'forecasts'
   = link_to 'New task', new_project_task_path(@project)
+  %a#task_names_link{href: 'javascript:showTaskNames();'} Show task names
   #table-wrapper
     = render 'table'
+:javascript
+  function showTaskNames() {
+    if($('.cell_task_name').attr('style') === '') {
+      $('.cell_task_name').attr('style', 'display: none;');
+      $('#task_names_link').text('Show task names');
+    } else {
+      $('.cell_task_name').attr('style', '');
+      $('#task_names_link').text('Hide task names');
+    }
+  }

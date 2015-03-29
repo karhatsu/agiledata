@@ -7,21 +7,27 @@
     border-spacing: 0;
     border-collapse: collapse;
     font-size: 11px;
+    table-layout: fixed;
 }
 
 #data-table th, #data-table td {
     border: 1px solid #ccc;
     margin: 0;
+    overflow: hidden;
     text-align: center;
-    width: 18px;
+    white-space: nowrap;
 }
 
 #data-table th {
     padding: 2px;
+    max-width: 50px;
+    width: 50px;
 }
 
 #data-table td {
     padding: 2px 0;
+    max-width: 30px;
+    width: 30px;
 }
 
 #data-table td.active {
