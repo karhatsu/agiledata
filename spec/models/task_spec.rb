@@ -130,7 +130,9 @@ describe Task do
   describe '#dates' do
     let(:start_date) { Date.new 2015, 2, 3 }
     let(:end_date) { Date.new 2015, 2, 5 }
-    let(:task) { build :task, start_date: start_date, end_date: end_date }
+    let(:project_end_date) { Date.new 2015, 2, 10 }
+    let(:project) { build :project, end_date: project_end_date }
+    let(:task) { build :task, start_date: start_date, end_date: end_date, project: project }
     let(:dates) { double }
 
     context 'when end date defined' do
@@ -141,9 +143,9 @@ describe Task do
     end
 
     context 'when no end date' do
-      it 'returns date range using start date and today' do
+      it 'returns date range using start date and project end date' do
         task.end_date = nil
-        expect(task).to receive(:date_range).with(start_date, Date.today).and_return(dates)
+        expect(task).to receive(:date_range).with(start_date, project_end_date).and_return(dates)
         expect(task.dates).to eq dates
       end
     end

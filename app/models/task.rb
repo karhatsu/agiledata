@@ -28,7 +28,7 @@ class Task < ActiveRecord::Base
   end
 
   def dates
-    max_date = end_date || Date.today
+    max_date = end_date || project.end_date
     date_range start_date, max_date
   end
 
