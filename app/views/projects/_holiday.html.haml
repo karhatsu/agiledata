@@ -1,0 +1,3 @@
+.form_field.holiday_sub_form
+  = f.date_select :date, start_year: 2013, end_year: Date.today.year
+  = remove_child_link 'Remove', f, 'holiday_sub_form', ''

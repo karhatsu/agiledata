@@ -51,6 +51,6 @@ class ProjectsController < ApplicationController
   end
 
   def existing_project_attributes
-    params.require(:project).permit([:name, :end_date])
+    params.require(:project).permit([:name, :end_date, holidays_attributes: [:date, :_destroy, :id]])
   end
 end

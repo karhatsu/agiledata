@@ -9,6 +9,8 @@ class Project < ActiveRecord::Base
 
   before_create :generate_key
 
+  accepts_nested_attributes_for :holidays
+
   def to_param
     key
   end

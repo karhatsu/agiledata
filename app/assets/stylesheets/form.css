@@ -55,3 +55,9 @@ input[type='submit']:hover {
     display: inline;
     width: 30px;
 }
+
+.form_field_hint {
+    color: #666;
+    font-size: 0.8em;
+    font-style: italic;
+}

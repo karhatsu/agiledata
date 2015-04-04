@@ -1,10 +1,21 @@
 - content_for :title, "#{@project.name} - Edit"
 = render partial: 'shared/form_errors', locals: { item: @project }
 = form_for @project do |f|
+  %h2 Basic fields
   .form_field
     = f.label :name
     = f.text_field :name, autofocus: true
   .form_field
     = f.label :end_date
     = f.date_select :end_date, include_blank: true, start_year: 2013, end_year: Date.today.year
+    .form_field_hint
+      If the project is finished, you can set an end date for it.
+  %h2 Special holidays
+  .form_field_hint
+    Saturdays and Sundays are automatically excluded from statistics. If you have special holidays
+    on Mon-Fri, add them here.
+  = f.fields_for :holidays do |h_f|
+    = render partial: 'holiday', locals: { f: h_f }
+  .form_field
+    = add_child_link 'Add special holiday', f, :holidays
   = submit_tag 'Save'
