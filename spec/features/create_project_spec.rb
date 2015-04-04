@@ -8,7 +8,7 @@ feature 'Create project' do
   scenario 'Successful project and task creation' do
     fill_in 'project_name', with: 'My project'
     click_button 'Start!'
-    expect(page).to have_content('My project')
+    expect_title_to_contain 'My project'
     expect(find('.project_url')).to have_content(project_url(Project.last))
     expect(page).not_to have_css('#data-table')
 

@@ -20,6 +20,19 @@ class ProjectsController < ApplicationController
     @tasks = @project.tasks
   end
 
+  def edit
+    @project = Project.find_by_key(params[:id])
+  end
+
+  def update
+    @project = Project.find_by_key(params[:id])
+    if @project.update(project_attributes)
+      redirect_to project_path(@project)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_task_count

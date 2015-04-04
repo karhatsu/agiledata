@@ -1,0 +1,7 @@
+- content_for :title, "#{@project.name} - Edit"
+= render partial: 'shared/form_errors', locals: { item: @project }
+= form_for @project do |f|
+  .form_field
+    = f.label :name
+    = f.text_field :name, autofocus: true
+  = submit_tag 'Save'

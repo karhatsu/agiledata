@@ -1,5 +1,7 @@
 - content_for :title, @project.name
 
+= link_to 'Edit project', edit_project_path(@project)
+
 - if @project.example?
   .example_project_info
     You are playing with example project data. You can create new tasks and update or delete the existing ones
