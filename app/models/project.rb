@@ -18,10 +18,7 @@ class Project < ActiveRecord::Base
   end
 
   def max_date
-    max_date = end_date || Date.today
-    return max_date.yesterday if max_date.wday == 6
-    return max_date.yesterday.yesterday if max_date.wday == 0
-    max_date
+    latest_work_day_for(end_date || Date.today)
   end
 
   def dates

@@ -69,60 +69,24 @@ describe Project do
   end
 
   describe '#max_date' do
-    let(:friday) { instance_double Date, wday: 5 }
-    let(:saturday) { instance_double Date, wday: 6 }
-    let(:sunday) { instance_double Date, wday: 0 }
-
-    before do
-      allow(sunday).to receive(:yesterday).and_return(saturday)
-      allow(saturday).to receive(:yesterday).and_return(friday)
-    end
-
     context 'when project has no end date' do
       let(:project) { build :project }
 
-      context 'when today is Mon-Fri' do
-        it 'is today' do
-          allow(Date).to receive(:today).and_return(friday)
-          expect(project.max_date).to eq(friday)
-        end
-      end
-
-      context 'when today is Saturday' do
-        it 'is yesterday' do
-          allow(Date).to receive(:today).and_return(saturday)
-          expect(project.max_date).to eq(friday)
-        end
-      end
-
-      context 'when today is Sunday' do
-        it 'is day before yesterday' do
-          allow(Date).to receive(:today).and_return(sunday)
-          expect(project.max_date).to eq(friday)
-        end
+      it 'returns latest work day for today' do
+        work_day = instance_double Date
+        expect(project).to receive(:latest_work_day_for).with(Date.today).and_return(work_day)
+        expect(project.max_date).to eql(work_day)
       end
     end
 
     context 'when project has end date' do
-      context 'that is Mon-Fri' do
-        it 'is project end date' do
-          project = build :project, end_date: friday
-          expect(project.max_date).to eq(friday)
-        end
-      end
+      let(:project_end_date) { '2015-04-01' }
+      let(:project) { build :project, end_date: project_end_date }
 
-      context 'that is Saturday' do
-        it 'is day before project end date' do
-          project = build :project, end_date: saturday
-          expect(project.max_date).to eq(friday)
-        end
-      end
-
-      context 'that is Sunday' do
-        it 'is two days before project end date' do
-          project = build :project, end_date: sunday
-          expect(project.max_date).to eq(friday)
-        end
+      it 'returns latest work day for project end date' do
+        work_day = instance_double Date
+        expect(project).to receive(:latest_work_day_for).with(project.end_date).and_return(work_day)
+        expect(project.max_date).to eql(work_day)
       end
     end
   end
