@@ -90,40 +90,54 @@ describe WorkDayAwareCalendar do
   end
 
   describe '#latest_work_day' do
-    before do
-      allow(Date).to receive(:today).and_return(today)
+    context 'when latest work day wanted' do
+      it 'asks latest work day for today' do
+        work_day = instance_double Date
+        expect(model).to receive(:latest_work_day_for).with(Date.today, 0).and_return(work_day)
+        expect(model.latest_work_day).to eql(work_day)
+      end
     end
 
-    context 'when today is work day' do
-      let(:today) { Date.new(2015, 3, 27) }
+    context 'when nth latest work day wanted' do
+      it 'asks nth latest work day for today' do
+        work_day = instance_double Date
+        expect(model).to receive(:latest_work_day_for).with(Date.today, 15).and_return(work_day)
+        expect(model.latest_work_day(15)).to eql(work_day)
+      end
+    end
+  end
+
+  describe '#latest_work_day_for' do
+    context 'when given date is work day' do
+      let(:date) { Date.new(2015, 3, 27) }
       it 'returns today' do
-        expect(model.latest_work_day).to eq today
+        expect(model.latest_work_day_for(date)).to eq date
       end
 
       it 'returns nth work day before that when asked' do
-        expect(model.latest_work_day(4)).to eq(today - 4)
+        expect(model.latest_work_day_for(date, 4)).to eq(date - 4)
       end
     end
 
-    context 'when today is Sunday' do
-      let(:today) { Date.new(2015, 3, 29) }
-      it 'returns previous Friday' do
-        expect(model.latest_work_day).to eq Date.new(2015, 3, 27)
+    context 'when given date is Sunday' do
+      let(:date) { Date.new(2015, 3, 29) }
+      it 'returns previous Friday before the given date' do
+        expect(model.latest_work_day_for(date)).to eq Date.new(2015, 3, 27)
       end
 
       it 'returns nth work day before previous Friday when asked' do
-        expect(model.latest_work_day(5)).to eq Date.new(2015, 3, 20)
+        expect(model.latest_work_day_for(date, 5)).to eq Date.new(2015, 3, 20)
       end
     end
 
     context 'when today is holiday' do
-      let(:today) { model.new_year_day }
-      it 'returns previous work day' do
-        expect(model.latest_work_day).to eq(model.new_year_day - 1)
+      let(:date) { model.new_year_day }
+      it 'returns previous work day before the given date' do
+        expect(model.latest_work_day_for(date)).to eq(model.new_year_day - 1)
       end
 
       it 'returns nth work day before previous work day when asked' do
-        expect(model.latest_work_day(7)).to eq Date.new(2014, 12, 19)
+        expect(model.latest_work_day_for(date, 7)).to eq Date.new(2014, 12, 19)
       end
     end
   end
