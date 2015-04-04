@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_attributes)
+    @project = Project.new(new_project_attributes)
     if @project.save
       redirect_to project_path(@project, initial: true)
     else
@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find_by_key(params[:id])
-    if @project.update(project_attributes)
+    if @project.update(existing_project_attributes)
       redirect_to project_path(@project)
     else
       render :edit
@@ -46,7 +46,11 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def project_attributes
+  def new_project_attributes
     params.require(:project).permit([:name])
+  end
+
+  def existing_project_attributes
+    params.require(:project).permit([:name, :end_date])
   end
 end

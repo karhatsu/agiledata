@@ -4,4 +4,7 @@
   .form_field
     = f.label :name
     = f.text_field :name, autofocus: true
+  .form_field
+    = f.label :end_date
+    = f.date_select :end_date, include_blank: true, start_year: 2013, end_year: Date.today.year
   = submit_tag 'Save'

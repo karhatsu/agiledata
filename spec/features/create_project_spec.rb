@@ -29,9 +29,7 @@ feature 'Create project' do
 
   def submit_new_task_form(name, start_date)
     fill_in 'Name', with: name
-    select start_date.year, from: 'task_start_date_1i'
-    select start_date.strftime('%B'), from: 'task_start_date_2i'
-    select start_date.day, from: 'task_start_date_3i'
+    select_task_start_date start_date
     click_button 'Save'
   end
 end
