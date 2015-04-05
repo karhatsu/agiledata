@@ -36,6 +36,29 @@ a.anchor {
     padding: 0;
 }
 
+a.action_link {
+    background-color: #138815;
+    border: solid #138815 1px;
+    border-radius: 2px;
+    box-shadow: #888 2px 2px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    padding: 7px;
+    margin: 0 0 5px;
+    text-decoration: none;
+}
+
+a.primary_action_link {
+    background-color: #880047;
+}
+
+a.action_link:hover {
+    background-color: #fff;
+    color: #138815;
+}
+
 .project_url, .example_project_info {
     background-color: #138815;
     border-radius: 2px;

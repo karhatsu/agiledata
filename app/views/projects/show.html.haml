@@ -1,7 +1,5 @@
 - content_for :title, @project.name
 
-= link_to 'Edit project', edit_project_path(@project)
-
 - if @project.example?
   .example_project_info
     You are playing with example project data. You can create new tasks and update or delete the existing ones
@@ -41,17 +39,18 @@
     items?
     = submit_tag 'Recalculate', class: 'small_button'
   = render 'forecasts'
-  = link_to 'New task', new_project_task_path(@project)
-  %a#task_names_link{href: 'javascript:showTaskNames();'} Show task names
+  = link_to 'New task', new_project_task_path(@project), class: 'action_link primary_action_link'
+  = link_to 'Edit project', edit_project_path(@project), class: 'action_link'
+  %a#task_names_link.action_link{href: 'javascript:showTaskNames();'} Show task names in table
   #table-wrapper
     = render 'table'
 :javascript
   function showTaskNames() {
     if($('.cell_task_name').attr('style') === '') {
       $('.cell_task_name').attr('style', 'display: none;');
-      $('#task_names_link').text('Show task names');
+      $('#task_names_link').text('Show task names in table');
     } else {
       $('.cell_task_name').attr('style', '');
-      $('#task_names_link').text('Hide task names');
+      $('#task_names_link').text('Hide task names in table');
     }
   }
