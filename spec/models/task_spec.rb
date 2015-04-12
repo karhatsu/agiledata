@@ -143,10 +143,21 @@ describe Task do
     end
 
     context 'when no end date' do
-      it 'returns date range using start date and project end date' do
-        task.end_date = nil
-        expect(task).to receive(:date_range).with(start_date, project_end_date).and_return(dates)
-        expect(task.dates).to eq dates
+      context 'and project has end date' do
+        it 'returns date range using start date and project end date' do
+          task.end_date = nil
+          expect(task).to receive(:date_range).with(start_date, project_end_date).and_return(dates)
+          expect(task.dates).to eq dates
+        end
+      end
+
+      context 'and neither project has end date' do
+        it 'returns date range using start date and today' do
+          task.end_date = nil
+          project.end_date = nil
+          expect(task).to receive(:date_range).with(start_date, Date.today).and_return(dates)
+          expect(task.dates).to eq dates
+        end
       end
     end
   end
