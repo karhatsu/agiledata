@@ -56,7 +56,7 @@ input[type='submit']:hover {
     display: inline;
 }
 
-.task_count_field {
+input[type='text'].task_count_field {
     display: inline;
     width: 30px;
 }
