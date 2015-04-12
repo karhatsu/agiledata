@@ -26,6 +26,11 @@
 input[type='text'] {
     padding: 8px;
     margin: 0 0 5px;
+    width: 200px;
+}
+
+.new_project_form input[type='text'] {
+    width: 150px;
 }
 
 input[type='submit'] {
