@@ -40,7 +40,7 @@
     = submit_tag 'Recalculate', class: 'small_button'
   = render 'forecasts'
   = link_to 'New task', new_project_task_path(@project), class: 'action_link primary_action_link'
-  = link_to 'Edit project', edit_project_path(@project), class: 'action_link'
+  = link_to 'Project settings', edit_project_path(@project), class: 'action_link'
   %a#task_names_link.action_link{href: 'javascript:showTaskNames();'} Show task names in table
   #table-wrapper
     = render 'table'

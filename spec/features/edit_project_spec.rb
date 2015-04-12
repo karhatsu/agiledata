@@ -3,9 +3,13 @@ require 'feature_helper'
 feature 'Edit project' do
   let(:project) { create :project }
 
+  background do
+    project.create_task 'The only task', '2015-03-23'
+  end
+
   scenario 'Edit project name' do
     visit project_path(project)
-    click_link 'Edit project'
+    click_link 'Project settings'
     fill_in 'Project name', with: ''
     click_button 'Save'
     expect_form_error "Project name can't be blank"
@@ -16,10 +20,9 @@ feature 'Edit project' do
   end
 
   scenario 'Finish project' do
-    project.create_task 'The only task', '2015-03-23'
     visit project_path(project)
     expect_task_table_last_date project.latest_work_day
-    click_link 'Edit project'
+    click_link 'Project settings'
     end_date = Date.new(2015, 3, 27)
     select_project_end_date end_date
     click_button 'Save'
