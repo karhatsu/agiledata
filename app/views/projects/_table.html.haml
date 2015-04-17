@@ -39,5 +39,6 @@
         %td
       %th Tasks
   %tbody
+    - last_index = @tasks.length - 1
     - @tasks.each_with_index do |task, task_no|
-      = render partial: 'task_row', locals: {dates: dates, task: task, task_no: task_no}
+      = render partial: 'task_row', locals: {dates: dates, task: task, task_no: task_no, end_anchor: last_index == task_no}

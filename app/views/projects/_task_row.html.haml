@@ -19,4 +19,4 @@
           - colspan = dates.length - day_index
           %td.unfinished{colspan: 2 * colspan - 1, title: title, class: unfinished_css_class(work_days_count)}
             = cell_edit_link @project, task, "#{work_days_count}?"
-  %td= task_no+1
+  %td{id: end_anchor ? 'table-end' : ''}= task_no+1
