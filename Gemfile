@@ -10,6 +10,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'unicorn'
+gem 'highcharts-rails'
 
 group :development, :test do
   gem 'byebug'
