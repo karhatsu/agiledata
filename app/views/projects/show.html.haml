@@ -44,6 +44,8 @@
   %a#task_names_link.action_link{href: 'javascript:showTaskNames();'} Show task names in table
   #table-wrapper
     = render 'table'
+  %h2#statistics Charts
+  = render 'charts'
 :javascript
   function showTaskNames() {
     if($('.cell_task_name').attr('style') === '') {

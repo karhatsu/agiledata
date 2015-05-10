@@ -1,0 +1,37 @@
+#lead_times_chart.chart
+#wip_chart.chart
+:javascript
+  $('#lead_times_chart').highcharts({
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: ''
+    },
+    yAxis: {
+      title: {
+        text: 'Days'
+      }
+    },
+    series: [{
+      name: 'Task lead time',
+      data: #{@project.finished_tasks.map {|t| [t.name, t.work_days_count]}.to_json}
+    }]
+  });
+  $('#wip_chart').highcharts({
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: ''
+    },
+    yAxis: {
+      title: {
+        text: 'WIP / day'
+      }
+    },
+    series: [{
+      name: 'WIP / day',
+      data: #{@project.wip_per_day.map {|w| w[1]}.to_json}
+    }]
+  });
