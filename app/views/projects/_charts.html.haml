@@ -1,5 +1,6 @@
 #lead_times_chart.chart
 #wip_chart.chart
+#throughput_forecast_change_chart.chart
 - finished_tasks = @project.finished_tasks
 - max_lead_time = finished_tasks.map {|t| t.work_days_count}.max
 :javascript
@@ -48,5 +49,26 @@
     series: [{
       name: 'WIP / day',
       data: #{@project.wip_per_day.map {|w| w[1]}.to_json}
+    }]
+  });
+  $('#throughput_forecast_change_chart').highcharts({
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: ''
+    },
+    xAxis: {
+      type: 'datetime'
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Work days'
+      }
+    },
+    series: [{
+      name: 'Throughput forecast change for 10 tasks',
+      data: #{@project.throughput_forecast_change(10, 3).map {|date_value| [date_value[0].to_datetime.to_i*1000, number_with_precision(date_value[1], precision: 0).to_i]}}
     }]
   });

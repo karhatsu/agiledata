@@ -23,8 +23,9 @@ class Project < ActiveRecord::Base
     latest_work_day_for(end_date || Date.today)
   end
 
-  def dates
-    date_range min_date, max_date
+  def dates(end_date=nil)
+    max = end_date || max_date
+    date_range min_date, max
   end
 
   def create_task(name, start_date=Date.today)

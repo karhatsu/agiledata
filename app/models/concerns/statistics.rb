@@ -26,9 +26,10 @@ module Statistics
     end
   end
 
-  def avg_throughput(prev_weeks=nil)
+  def avg_throughput(prev_weeks=nil, end_date=nil)
     chosen_tasks = finished_tasks
     return nil if chosen_tasks.empty?
+    dates = dates end_date
     weeks = dates.size.to_f / 5
     if prev_weeks && dates.size.to_f/5 > prev_weeks
       min_date = dates[dates.size - 5*prev_weeks]
