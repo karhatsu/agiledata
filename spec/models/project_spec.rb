@@ -73,7 +73,7 @@ describe Project do
       let(:project) { build :project }
 
       it 'returns latest work day for today' do
-        work_day = instance_double Date
+        work_day = double Date
         expect(project).to receive(:latest_work_day_for).with(Date.today).and_return(work_day)
         expect(project.max_date).to eql(work_day)
       end
@@ -84,7 +84,7 @@ describe Project do
       let(:project) { build :project, end_date: project_end_date }
 
       it 'returns latest work day for project end date' do
-        work_day = instance_double Date
+        work_day = double Date
         expect(project).to receive(:latest_work_day_for).with(project.end_date).and_return(work_day)
         expect(project.max_date).to eql(work_day)
       end
@@ -385,7 +385,7 @@ describe Project do
 
         context 'when average throughput for last 4 weeks is 2' do
           it 'is 12.5 work days (2.5 weeks) when calculated based on last 4 weeks throughput' do
-            expect(project).to receive(:avg_throughput).with(4).and_return(2)
+            expect(project).to receive(:avg_throughput).with(4, nil).and_return(2)
             expect(project.throughput_forecast_for(5, 4)).to eq(12.5)
           end
         end

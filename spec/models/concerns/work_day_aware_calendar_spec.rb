@@ -92,7 +92,7 @@ describe WorkDayAwareCalendar do
   describe '#latest_work_day' do
     context 'when latest work day wanted' do
       it 'asks latest work day for today' do
-        work_day = instance_double Date
+        work_day = double Date
         expect(model).to receive(:latest_work_day_for).with(Date.today, 0).and_return(work_day)
         expect(model.latest_work_day).to eql(work_day)
       end
@@ -100,7 +100,7 @@ describe WorkDayAwareCalendar do
 
     context 'when nth latest work day wanted' do
       it 'asks nth latest work day for today' do
-        work_day = instance_double Date
+        work_day = double Date
         expect(model).to receive(:latest_work_day_for).with(Date.today, 15).and_return(work_day)
         expect(model.latest_work_day(15)).to eql(work_day)
       end
