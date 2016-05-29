@@ -22,7 +22,7 @@ RSpec.configure do |config|
     # to individual examples or groups you care about by tagging them with
     # `:focus` metadata. When nothing is tagged with `:focus`, all examples
     # get run.
-    config.filter_run :focus
+    #config.filter_run :focus
     config.run_all_when_everything_filtered = true
 
     # Many RSpec users commonly either run the entire suite or an individual
@@ -72,7 +72,7 @@ RSpec.configure do |config|
 
       # Prevents you from mocking or stubbing a method that does not exist on
       # a real object. This is generally recommended.
-      mocks.verify_partial_doubles = true
+      #mocks.verify_partial_doubles = true
     end
   end
 end
