@@ -85,7 +85,7 @@ describe WorkDayAwareCalendar do
     end
 
     it 'raises error when date2 is less than date1' do
-      expect { model.days_between(Date.today, 1.day.ago) }.to raise_error
+      expect { model.days_between(Date.today, 1.day.ago) }.to raise_error(RuntimeError)
     end
   end
 
