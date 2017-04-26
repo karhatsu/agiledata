@@ -1,6 +1,6 @@
 module WorkDayAwareCalendar
   def holiday?(date)
-    weekend?(date) || predefined_holiday(date)
+    (!weekends? && weekend?(date)) || predefined_holiday(date)
   end
 
   def date_range(min_date, max_date)

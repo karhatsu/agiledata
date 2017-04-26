@@ -11,6 +11,7 @@ class Task < ActiveRecord::Base
   validate :end_date_not_before_start_date
 
   delegate :holidays, to: :project
+  delegate :weekends?, to: :project
 
   def self.finished
     where 'end_date is not null'

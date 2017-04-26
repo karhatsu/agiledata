@@ -4,6 +4,10 @@ describe WorkDayAwareCalendar do
   class FakeModel
     include WorkDayAwareCalendar
 
+    def initialize(project_weekends)
+      @project_weekends = project_weekends
+    end
+
     def holidays
       [Holiday.new(date: christmas_day), Holiday.new(date: new_year_day)]
     end
@@ -15,14 +19,29 @@ describe WorkDayAwareCalendar do
     def new_year_day
       Date.new(2015, 1, 1)
     end
+
+    def weekends?
+      @project_weekends
+    end
   end
 
-  let(:model) { FakeModel.new }
+  let(:model) { FakeModel.new false }
 
   describe '#holiday?' do
-    it 'true for Saturday and Sunday' do
-      expect(model.holiday? Date.new(2015, 2, 14)).to be_truthy
-      expect(model.holiday? Date.new(2015, 2, 15)).to be_truthy
+    context 'when project is not using weekends' do
+      it 'true for Saturday and Sunday' do
+        expect(model.holiday? Date.new(2015, 2, 14)).to be_truthy
+        expect(model.holiday? Date.new(2015, 2, 15)).to be_truthy
+      end
+    end
+
+    context 'when project is using weekends' do
+      let(:model) { FakeModel.new true }
+
+      it 'false for Saturday and Sunday' do
+        expect(model.holiday? Date.new(2015, 2, 14)).to be_falsey
+        expect(model.holiday? Date.new(2015, 2, 15)).to be_falsey
+      end
     end
 
     it 'false for Monday-Friday' do

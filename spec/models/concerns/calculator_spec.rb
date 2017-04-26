@@ -5,7 +5,7 @@ describe Calculator do
     include Calculator
   end
 
-  let(:model) { FakeModel.new }
+  let(:model) { FakeModel.new false }
 
   describe '#average' do
     context 'when empty arrow' do
