@@ -3,3 +3,4 @@ en:
     attributes:
       project:
         name: Project name
+        weekends: Weekends are work days
