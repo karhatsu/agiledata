@@ -1,8 +1,8 @@
 class Project < ActiveRecord::Base
   include Calculator, WorkDayAwareCalendar, Statistics, Forecasts
 
-  has_many :holidays, -> { order(:date) }
-  has_many :tasks, -> { order(:start_date, :end_date) }
+  has_many :holidays, -> { order(:date) }, dependent: :destroy
+  has_many :tasks, -> { order(:start_date, :end_date) }, dependent: :destroy
   has_many :finished_tasks, -> { finished.order(:end_date) }, class_name: Task
 
   validates :name, presence: true
