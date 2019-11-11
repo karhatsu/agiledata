@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
 
   has_many :holidays, -> { order(:date) }, dependent: :destroy
   has_many :tasks, -> { order(:start_date, :end_date) }, dependent: :destroy
-  has_many :finished_tasks, -> { finished.order(:end_date) }, class_name: Task
+  has_many :finished_tasks, -> { finished.order(:end_date) }, class_name: 'Task'
 
   validates :name, presence: true
 

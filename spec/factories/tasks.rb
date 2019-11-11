@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :task do
     project
-    start_date '2015-01-07'
+    start_date { '2015-01-07' }
   end
 end

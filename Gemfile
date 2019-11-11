@@ -2,11 +2,10 @@ source 'https://rubygems.org'
 
 ruby '2.6.5'
 
-gem 'rails', '5.0.2'
+gem 'rails', '5.2.3'
 gem 'haml-rails'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sassc-rails'
+gem 'uglifier'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'unicorn'
@@ -29,7 +28,7 @@ end
 group :test do
   gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'shoulda'
   gem 'rspec-collection_matchers'
   gem 'capybara'
