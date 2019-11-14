@@ -31,7 +31,7 @@
     },
     series: [{
       name: 'Task lead time',
-      data: #{finished_tasks.map {|t| [t.name, t.work_days_count]}.to_json}
+      data: #{raw(finished_tasks.map {|t| [t.name, t.work_days_count]}.to_json)}
     }]
   });
   $('#wip_chart').highcharts({
