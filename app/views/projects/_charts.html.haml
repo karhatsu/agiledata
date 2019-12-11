@@ -68,7 +68,7 @@
       }
     },
     series: [{
-      name: 'Throughput forecast change for 10 tasks',
+      name: 'Throughput forecast for 10 tasks',
       data: #{@project.throughput_forecast_change(10, 3).map {|date_value| [date_value[0].to_datetime.to_i*1000, number_with_precision(date_value[1], precision: 0).to_i]}}
     }]
   });
