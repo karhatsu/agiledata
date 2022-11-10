@@ -11,7 +11,7 @@ gem 'unicorn'
 gem 'highcharts-rails'
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'webrick'
 end
 
 group :development, :test do
