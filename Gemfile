@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.6.5'
+ruby '3.0.3'
 
-gem 'rails', '5.2.3'
+gem 'rails', '6.1.7'
 gem 'haml-rails'
-gem 'sassc-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'turbolinks'
